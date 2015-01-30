@@ -1,0 +1,21 @@
+{
+  "port": 2000,
+  "mongoose": {
+    "options": {
+      "server": {
+        "socketOptions": {
+          "keepAlive": 1
+        }
+      }
+    }
+  },
+  "session": {
+    "secret": "1IxKQqDlZHdV9Xm-ksRe7U6f-z4W7O16h8PgfA98E-HI",
+    "key": "sid",
+    "cookie": {
+      "path": "/",
+      "httpOnly": true,
+      "maxAge": null
+    }
+  }
+}

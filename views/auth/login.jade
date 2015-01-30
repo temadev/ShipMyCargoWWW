@@ -1,0 +1,26 @@
+extends ../layouts/main
+block meta
+   title Sign In
+block content
+   #block-page.content-block
+      .container
+         .row
+            .col-md-8.col-md-offset-2
+               .page-content
+                  .page-header
+                     h1 Sign In
+                  form#loginForm.form-horizontal(role='form')
+                     .form-group
+                        label.col-lg-3.control-label(for='loginEmail') Email address
+                        .col-lg-6
+                           input.form-control#loginEmail(type='email', name='loginEmail', placeholder='Email address')
+                     .form-group
+                        label.col-lg-3.control-label(for='loginPassword') Password
+                        .col-lg-6
+                           input.form-control#loginPassword(type='password', name='loginPassword', placeholder='Password')
+                     .form-group
+                        .col-lg-offset-3.col-lg-6
+                           #errors.hidden.text-danger.alert.alert-danger
+                           button.btn.btn-primary(type='submit') Sign In
+                           | &nbsp;
+                           | Don't Have an Account? <a href="/auth/register">Join</a>

@@ -1,0 +1,14 @@
+extends layouts/main
+block meta
+  title ShipMyCargo
+block content
+  .jumbotron(style='margin-top: 40px')
+    h1= title
+    p What are you shipping?
+    .form-group
+      .row
+        .col-lg-6
+          select#shipping.form-control.input-lg
+            option(value='1') Household Goods
+            option(value='2') Household & Office Moves
+    a.btn.btn-success.btn-lg(href='#') Continue

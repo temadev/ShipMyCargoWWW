@@ -1,0 +1,23 @@
+{
+  "name": "ShipMyCargo",
+  "version": "0.0.0",
+  "homepage": "https://github.com/stencilman/ShipMyCargo",
+  "authors": [
+    "Artem Kashin <dev.tema@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "form.validation": "~0.5.3",
+    "modernizr": "~2.8.3",
+    "fontawesome": "~4.3.0"
+  }
+}

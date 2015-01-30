@@ -1,0 +1,20 @@
+extends layouts/main
+
+block content
+	h1.
+		All Records
+	table
+		thead
+			tr
+				th nameofcompany
+				th address
+				th yearestablished
+				th website
+		tbody
+		each item in data
+			tr
+				td= item.nameofcompany
+				td= item.address
+				td= item.yearestablished
+				td
+					a(href="http://#{item.website}")= item.website

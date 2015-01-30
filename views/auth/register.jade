@@ -1,0 +1,49 @@
+extends ../layouts/main
+block meta
+  title Registration
+block content
+  #block-page.content-block
+    .container
+      .row
+        .col-md-8.col-md-offset-2
+          .page-content
+            .page-header
+              h1 Join ShipMyCargo
+            form#registerForm.form-horizontal(role='form', name='register-form', method='POST', action='/register')
+              .form-group
+                label.col-lg-3.control-label(for='registerEmail') Email address
+                .col-lg-6
+                  input.form-control#registerEmail(type='email', name='email', placeholder='Email address')
+              .form-group
+                label.col-lg-3.control-label(for='registerPhone') Phone number
+                .col-lg-6
+                  input.form-control#registerPhone(type='phone', name='phone', placeholder='Phone number')
+              .form-group
+                label.col-lg-3.control-label(for='registerPassword') Create a Password
+                .col-lg-6
+                  input.form-control#registerPassword(type='password', name='password', placeholder='Create a Password')
+              hr
+              .form-group
+                label.col-lg-3.control-label(for='role') Register as
+                .col-lg-6
+                  select.form-control#role(name='role')
+                    option(value='shipper', selected) Shipping Customer
+              .form-group
+                label.col-lg-3.control-label(for='firstname') First name
+                .col-lg-6
+                  input.form-control#firstname(type='text', name='firstname', placeholder='First name')
+              .form-group
+                label.col-lg-3.control-label(for='lastname') Last name
+                .col-lg-6
+                  input.form-control#lastname(type='text', name='lastname', placeholder='Last name')
+              hr
+              .form-group
+                label.col-lg-3.control-label#captchaOperation
+                .col-lg-3
+                  input.form-control(type='text', name='captcha')
+              .form-group
+                .col-lg-offset-3.col-lg-6
+                  #errors.hidden.text-danger.alert.alert-danger
+                  button.btn.btn-primary(type='submit') Join ShipMyCargo
+                  p.text-muted By clicking Join&nbsp;ShipMyCargo, you accept the terms and conditions of the <a href="#">ShipMyCargo&nbsp;User&nbsp;Agreement</a>.
+            span.help-block.error

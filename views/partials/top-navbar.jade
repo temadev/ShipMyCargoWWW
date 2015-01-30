@@ -1,0 +1,19 @@
+- function userName(user) {return (user.lastname && user.firstname)?user.firstname.charAt(0).toUpperCase()+'. '+user.lastname:user.email}
+.navbar-header
+  button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+    span.sr-only Toggle navigation
+    span.icon-bar
+    span.icon-bar
+    span.icon-bar
+  a.navbar-brand(href='/') ShipMyCargo
+#navbar.collapse.navbar-collapse
+  ul.nav.navbar-nav
+    li.active: a(href='/') Home
+    li: a(href='#') About
+  ul.nav.navbar-nav.navbar-right
+    if (user)
+      li: a(href='/profile') #{userName(user)}
+      li: a.logout(href='#', data-toggle="tooltip", data-placement="bottom", title="Sign Out"): i.fa.fa-sign-out
+    else
+      li: a(href='/auth/login') Sign In
+      li: a(href='/auth/register') Join

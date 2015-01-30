@@ -1,0 +1,19 @@
+doctype html
+html(lang='en')
+  head
+    block active-item
+    include ../partials/head
+  body
+    section#wrapper
+      header#header
+        nav.navbar.navbar-inverse.navbar-fixed-top
+          .container
+            include ../partials/top-navbar
+      section#content
+        .container
+          block content
+      footer#footer
+        .container: .copyright &copy; 2015 ShipMyCargo
+    block body_child
+    include ../partials/scripts
+    block page_scripts
