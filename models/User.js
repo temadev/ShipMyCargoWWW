@@ -19,10 +19,10 @@ var userSchema = new Schema({
   role: {type: String, default: 'shipper'},
   hashedPassword: {type: String, required: true},
   salt: {type: String, required: true},
+  ip: {type: String},
   created: {type: Date},
   updated: {type: Date},
-  status: {type: Boolean, default: true},
-  ip: {type: String}
+  status: {type: Boolean, default: true}
 });
 
 

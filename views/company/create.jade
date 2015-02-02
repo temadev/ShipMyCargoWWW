@@ -1,0 +1,126 @@
+extends ../layouts/main
+block meta
+  title Create Company
+block content
+  #block-page.content-block
+    .container
+      .row
+        .col-md-8.col-md-offset-2
+          .page-content
+            .page-header
+              h1 Create Company
+            form#companyForm.form-horizontal(role='form', name='company-form')
+              .form-group
+                label.col-lg-3.control-label(for='companyName') Name of Company
+                .col-lg-6
+                  input.form-control#companyName(type='text', name='name', placeholder='Type Name of Company')
+              .form-group
+                label.col-lg-3.control-label(for='companyAddress') Address
+                .col-lg-6
+                  input.form-control#companyAddress(type='text', name='address', placeholder='Type Company Address')
+              .form-group
+                label.col-lg-3.control-label(for='year') Year Year Established
+                .col-lg-6
+                  input.form-control#year(type='text', name='year', placeholder='eg. 2000')
+              .form-group
+                label.col-lg-3.control-label(for='website') Website
+                .col-lg-6
+                  input.form-control#website(type='text', name='website', placeholder='www.company.com')
+              .form-group
+                label.col-lg-3.control-label(for='baseLocation') Payment Terms
+                .col-lg-6
+                  input.form-control#baseLocation(type='text', name='location', placeholder='Base Location')
+              .form-group
+                label.col-lg-3.control-label(for='weight') Minimum Weight
+                .col-lg-6
+                  input.form-control#weight(type='text', name='weight', placeholder='Minimum Weight')
+              .form-group
+                label.col-lg-3.control-label(for='size') Godown Space (Square Feet)
+                .col-lg-6
+                  input.form-control#size(type='text', name='size', placeholder='Godown Space (Square Feet)')
+              .form-group
+                label.col-lg-3.control-label(for='productCategory') Specific product Categories Handled
+                .col-lg-6
+                  input.form-control#productCategory(type='text', name='product_category', placeholder='Specific product Categories Handled')
+              .form-group
+                label.col-lg-3.control-label(for='vehicle') Type Of Vehicle
+                .col-lg-6
+                  input.form-control#vehicle(type='text', name='vehicle', placeholder='Type Of Vehicle')
+              .form-group
+                label.col-lg-3.control-label(for='product') Product
+                .col-lg-6
+                  input.form-control#product(type='text', name='product', placeholder='LTL, FTL, 3PL')
+              .form-group
+                label.col-lg-3.control-label(for='productNotHandled') Product Not Handled
+                .col-lg-6
+                  input.form-control#productNotHandled(type='text', name='product_nothandled', placeholder='PTL, FTL')
+              .form-group
+                label.col-lg-3.control-label(for='payment') Payment Terms
+                .col-lg-6
+                  input.form-control#payment(type='text', name='payment', placeholder='Type Booking or Delivery or Credit')
+              .form-group
+                label.col-lg-3.control-label(for='playerType') Type Of Player
+                .col-lg-6
+                  input.form-control#playerType(type='text', name='player_type', placeholder='Carrier/Broker')
+              .form-group
+                label.col-lg-3.control-label(for='playerCategory') Category Of Player
+                .col-lg-6
+                  input.form-control#playerCategory(type='text', name='player_category', placeholder='National/Local')
+              hr
+              .form-group.clonedInput#person1
+                label.col-lg-3.control-label Contact Person
+                .col-lg-6
+                  input.form-control#personFirstname1(type='text', name='person[0][firstname]', placeholder='Firstname')
+                .col-lg-6.col-lg-offset-3
+                  input.form-control#personLastname1(type='text', name='person[0][lastname]', placeholder='Lastname')
+                .col-lg-6.col-lg-offset-3
+                  input.form-control#personPhone1(type='text', name='person[0][phone]', placeholder='Phone')
+                .col-lg-6.col-lg-offset-3
+                  input.form-control#personEmail1(type='email', name='person[0][email]', placeholder='Email')
+                .col-lg-6.col-lg-offset-3
+                  input.form-control#personDesignation1(type='text', name='person[0][designation]', placeholder='Designation (Promoter/CEO/HOS/Contact)')
+              .form-group
+                .col-sm-4.col-sm-offset-2
+                  button#personAdd.btn.btn-default Add Person
+                  button#personDel.btn.btn-default Remove Person
+              hr
+              .form-group
+                .col-lg-offset-3.col-lg-9
+                  .checkbox.c-checkbox
+                    label
+                      input#vehicle(type="checkbox", name="vehicle")
+                      span.fa.fa-check
+                      | Closed Body Vehicle
+              .form-group
+                .col-lg-offset-3.col-lg-9
+                  .checkbox.c-checkbox
+                    label
+                      input#doorPickup(type="checkbox", name="door_pickup")
+                      span.fa.fa-check
+                      | Door Pickup
+              .form-group
+                .col-lg-offset-3.col-lg-9
+                  .checkbox.c-checkbox
+                    label
+                      input#doorDelivery(type="checkbox", name="door_delivery")
+                      span.fa.fa-check
+                      | Door Delivery
+              .form-group
+                .col-lg-offset-3.col-lg-9
+                  .checkbox.c-checkbox
+                    label
+                      input#packagingService(type="checkbox", name="packaging_service")
+                      span.fa.fa-check
+                      | Packaging Services Required
+              .form-group
+                .col-lg-offset-3.col-lg-9
+                  .checkbox.c-checkbox
+                    label
+                      input#transitInsurance(type="checkbox", name="transit_insurance")
+                      span.fa.fa-check
+                      | Transit Insurance Required
+              .form-group
+                .col-lg-offset-3.col-lg-6
+                  #errors.hidden.text-danger.alert.alert-danger
+                  button.btn.btn-primary(type='submit') Continue
+            span.help-block.error

@@ -1,16 +1,8 @@
 module.exports = {
-  user: function (req, res, next) {
-    if (!req.isAuthenticated()) {
-      req.session.goingTo = req.url;
-      res.redirect('/login');
-      return;
-    }
-    next();
-  },
   shipper: function (req, res, next) {
     if (!req.isAuthenticated()) {
       req.session.goingTo = req.url;
-      res.redirect('/login');
+      res.redirect('/auth/login');
       return;
     }
     if (req.user && (req.user.role === 'shipper' || req.user.role === 'admin')) {
@@ -22,7 +14,7 @@ module.exports = {
   carrier: function (req, res, next) {
     if (!req.isAuthenticated()) {
       req.session.goingTo = req.url;
-      res.redirect('/login');
+      res.redirect('/auth/login');
       return;
     }
     if (req.user && (req.user.role === 'carrier' || req.user.role === 'admin')) {

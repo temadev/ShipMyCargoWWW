@@ -1,21 +1,17 @@
 var mongoose = require('lib/mongoose')
   , Schema = mongoose.Schema;
 
-var companySchema = new Schema({
+var shipmentSchema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: 'User'},
-  name: {type: String},
-  address: {type: String},
-  year: {type: String},
-  website: {type: String},
-  location: {type: String},
-  player_type: {type: String},
-  player_category: {type: String},
+  booking_point: {type: String},
+  delivery_point: {type: String},
+  routes: {type: String},
+  latitude: {type: String},
+  longitude: {type: String},
   dispatch: {type: String},
   weight: {type: String},
   size: {type: String},
   product_category: {type: String},
-  product: {type: String},
-  product_nothandled: {type: String},
   vehicle: {type: String},
   payment: {type: String},
   transit_insurance: {type: Boolean},
@@ -29,7 +25,7 @@ var companySchema = new Schema({
   status: {type: Boolean, default: true}
 });
 
-companySchema.pre('save', function (next) {
+shipmentSchema.pre('save', function (next) {
   if (!this.created) {
     this.created = Date.now();
   }
@@ -37,4 +33,4 @@ companySchema.pre('save', function (next) {
   next();
 });
 
-module.exports = mongoose.model('Company', companySchema);
+module.exports = mongoose.model('Shipment', shipmentSchema);
