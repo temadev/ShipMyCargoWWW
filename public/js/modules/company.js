@@ -74,4 +74,23 @@
 
   });
 
+
+  $(function () {
+
+    $('.removeCompany').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: 'post',
+        data: {id: $(this).data('id')},
+        url: '/company/remove',
+        success: function (result) {
+          if (result.valid === true) {
+            window.location.href = '/company';
+          }
+        }
+      });
+    });
+
+  });
+
 }(jQuery, window, document));

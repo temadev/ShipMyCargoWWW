@@ -1,0 +1,119 @@
+extends ../layouts/main
+block meta
+  title Modify Search
+block content
+  .page-header
+    h1 MODIFY SEARCH
+      br
+      small Modify the following consignment details
+  .row
+    .col-md-8
+      form#shipmentForm.form-horizontal(role='form', name='shipment-form')
+        .form-group
+          label.col-md-3.control-label(for='dispatch') Mode of Dispatch
+          .col-md-9
+            select.form-control#dispatch(name='dispatch')
+              if shipment.dispatch === 'air'
+                option(value='air', selected) Air
+                option(value='surface') Surface
+              else
+                option(value='air') Air
+                option(value='surface', selected) Surface
+        .form-group
+          label.col-md-3.control-label(for='bookingPoint') From
+          .col-md-9
+            input.form-control#bookingPoint(type='text', name='booking_point', placeholder='Type Booking City', value='#{shipment.booking_point?shipment.booking_point:""}')
+        .form-group
+          label.col-md-3.control-label(for='deliveryPoint') To
+          .col-md-9
+            input.form-control#deliveryPoint(type='text', name='delivery_point', placeholder='Type Delivery City', value='#{shipment.delivery_point?shipment.delivery_point:""}')
+        .form-group
+          label.col-md-3.control-label(for='weight') Weight
+          .col-md-9
+            input.form-control#weight(type='text', name='weight', placeholder='Type Weight of your Consignment', value='#{shipment.weight?shipment.weight:""}')
+        .form-group
+          label.col-md-3.control-label(for='payment') Payment Terms
+          .col-md-9
+            input.form-control#payment(type='text', name='payment', placeholder='Type Booking or Delivery or Credit', value='#{shipment.payment?shipment.payment:""}')
+        hr
+        .form-group
+          .col-md-offset-3.col-md-9
+            .checkbox.c-checkbox
+              label
+                if shipment.payment
+                  input#vehicle(type='checkbox', name='vehicle', checked)
+                else
+                  input#vehicle(type='checkbox', name='vehicle')
+                span.fa.fa-check
+                | Closed Body Vehicle
+        .form-group
+          .col-md-offset-3.col-md-9
+            .checkbox.c-checkbox
+              label
+                if shipment.door_pickup
+                  input#doorPickup(type='checkbox', name='door_pickup', checked)
+                else
+                  input#doorPickup(type='checkbox', name='door_pickup')
+                span.fa.fa-check
+                | Door Pickup
+        .form-group
+          .col-md-offset-3.col-md-9
+            .checkbox.c-checkbox
+              label
+                if shipment.door_delivery
+                  input#doorDelivery(type='checkbox', name='door_delivery', checked)
+                else
+                  input#doorDelivery(type='checkbox', name='door_delivery')
+                span.fa.fa-check
+                | Door Delivery
+        .form-group
+          .col-md-offset-3.col-md-9
+            .checkbox.c-checkbox
+              label
+                if shipment.packaging_service
+                  input#packagingService(type='checkbox', name='packaging_service', checked)
+                else
+                  input#packagingService(type='checkbox', name='packaging_service')
+                span.fa.fa-check
+                | Packaging Services Required
+        .form-group
+          .col-md-offset-3.col-md-9
+            .checkbox.c-checkbox
+              label
+                if shipment.transit_insurance
+                  input#transitInsurance(type='checkbox', name='transit_insurance', checked)
+                else
+                  input#transitInsurance(type='checkbox', name='transit_insurance')
+                span.fa.fa-check
+                | Transit Insurance Required
+
+        .form-group
+          .col-md-offset-3.col-md-9
+            .checkbox.c-checkbox
+              label
+                if shipment.size
+                  input#warehousing(type='checkbox', name='warehousing', checked)
+                else
+                  input#warehousing(type='checkbox', name='warehousing')
+                span.fa.fa-check
+                | Warehousing Required
+        .form-group#warehouse(style='#{shipment.size?"":"display:none"}')
+          label.col-md-3.control-label(for='size') Godown/Warehouse
+          .col-md-9
+            input.form-control#size(type='text', name='size', placeholder='Godown/Warehouse', value='#{shipment.size?shipment.size:""}')
+        hr
+        .form-group
+          .col-lg-offset-3.col-md-9
+            #errors.hidden.text-danger.alert.alert-danger
+            input(type='hidden', name='id', value='#{shipment._id}')
+            button.btn.btn-lg.btn-primary(type='submit') Continue
+      span.help-block.error
+    .col-md-3.col-md-offset-1
+      if lastShipments
+        h4 Your Last Searches
+        .list-group
+        each shipment in lastShipments
+          a.list-group-item(href='shipment/#{shipment._id}')
+            strong #{shipment.booking_point} <i class="fa fa-long-arrow-right"></i> #{shipment.delivery_point}
+            br
+            small #{showTime(shipment.updated)}

@@ -1,0 +1,89 @@
+extends ../layouts/main
+block meta
+  title= company.name
+block content
+
+  .page-header
+    h1= company.name
+  .row
+    .col-md-6
+      .panel.panel-default
+        table.table.table-condensed.table-hover
+          tr
+            td Address
+            td(style='width: 70%')= company.address
+          tr
+            td Year
+            td= company.year
+          tr
+            td Website
+            td= company.website
+          tr
+            td Phone
+            td= company.user.phone
+
+      if persons
+        h4 Persons
+        each person in persons
+          .panel.panel-default
+            table.table.table-condensed.table-hover
+              tr
+                td Name
+                td(style='width: 70%') #{person.firstname} #{person.lastname}
+              tr
+                td Designation
+                td= person.designation
+              tr
+                td Email
+                td= person.email
+              tr
+                td Phone
+                td= person.phone
+    .col-md-6
+      .panel.panel-default
+        table.table.table-condensed.table-hover
+          tr
+            td Base Location
+            td(style='width: 70%')= company.location
+          tr
+            td Minimum Weight
+            td= company.weight
+          tr
+            td Godown Space (Square Feet)
+            td= company.size
+          tr
+            td Specific product Categories Handled
+            td= company.product_category
+          tr
+            td Type Of Vehicle
+            td= company.vehicle
+          tr
+            td Product
+            td= company.product
+          tr
+            td Product Not Handled
+            td= company.product_nothandled
+          tr
+            td Payment Terms
+            td= company.payment
+          tr
+            td Type Of Player
+            td= company.player_type
+          tr
+            td Category Of Player
+            td= company.player_category
+          tr
+            td Transit Insurance
+            td= company.transit_insurance ? 'yes' : 'no'
+          tr
+            td Door Pickup
+            td= company.door_pickup ? 'yes' : 'no'
+          tr
+            td Door Delivery
+            td= company.door_delivery ? 'yes' : 'no'
+          tr
+            td Detention Charges
+            td= company.detention_charges ? 'yes' : 'no'
+          tr
+            td Packaging Service
+            td= company.packaging_service ? 'yes' : 'no'

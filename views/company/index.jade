@@ -1,0 +1,29 @@
+extends ../layouts/main
+block meta
+   title Logistic Companies
+block content
+   .content
+      .page-header
+         h1 Logistic Companies
+      each company in companies
+         .panel.panel-default
+            .panel-heading
+               a(href='/company/#{company._id}')= company.name
+               a.removeCompany.btn.btn-xs.btn-danger.pull-right(href='#', data-id='#{company._id}'): i.fa.fa-trash-o
+               .clearfix
+            table.table.table-condensed.table-hover
+               tr
+                  td Address
+                  td(style='width: 70%')= company.address
+               tr
+                  td Year
+                  td= company.year
+               tr
+                  td Website
+                  td= company.website
+               tr
+                  td Phone
+                  td= company.user.phone
+               tr
+                  td
+                  td: a.btn.btn-primary(href='/company/#{company._id}') Send Enquiry

@@ -5,17 +5,22 @@ var express = require('express')
   , ObjectId = mongoose.Types.ObjectId
   , checkAuth = require('middleware/checkAuth')
   , Shipment = require('models/Shipment')
+  , Company = require('models/Company')
   , User = require('models/User');
 
-/* GET shipments listing. */
-router.get('/', function (req, res, next) {
-  Shipment.find({}).exec(function (err, shipments) {
-    res.send(shipments);
-  });
+
+router.get('/', checkAuth.carrier, function (req, res, next) {
+  Shipment.find({})
+    .sort({created: -1})
+    .populate('user', 'email username phone firstname lastname')
+    .exec(function (err, shipments) {
+      //res.send(shipments);
+      res.render('shipment', {shipments: shipments});
+    });
 });
 
-/* GET shipment by id. */
-router.get('/:id', function (req, res, next) {
+
+router.get('/:id', checkAuth.shipper, checkAuth.carrier, function (req, res, next) {
   try {
     var id = new ObjectId(req.params.id);
   } catch (e) {
@@ -24,30 +29,100 @@ router.get('/:id', function (req, res, next) {
   }
 
   Shipment.findById(id)
-    .populate('user', 'email username firstname lastname')
+    .populate('user', 'email username phone firstname lastname')
     .exec(function (err, shipment) {
-    if (err) throw err;
-    if (!shipment) {
-      next();
-      return;
-    }
-    res.send(shipment);
-  });
+      if (err) throw err;
+      if (!shipment) {
+        next();
+        return;
+      }
+
+      var request = {};
+
+      console.log(shipment);
+
+      //if (shipment.vehicle) request.vehicle = shipment.vehicle;
+      if (shipment.door_puckup) request.door_puckup = shipment.door_puckup;
+      if (shipment.door_delivery) request.door_delivery = shipment.door_delivery;
+      if (shipment.packaging_service) request.packaging_service = shipment.packaging_service;
+      if (shipment.transit_insurance) request.transit_insurance = shipment.transit_insurance;
+
+      Company
+        .find(request)
+        .populate('user', 'email username phone firstname lastname')
+        .exec(function (err, companies) {
+          res.render('shipment/view', {shipment: shipment, companies: companies});
+        });
+
+    });
+});
+
+
+router.get('/:id/edit', checkAuth.shipper, checkAuth.carrier, function (req, res, next) {
+  try {
+    var id = new ObjectId(req.params.id);
+  } catch (e) {
+    next();
+    return;
+  }
+
+  Shipment.findById(id)
+    .exec(function (err, shipment) {
+      if (err) throw err;
+      if (!shipment) {
+        next();
+        return;
+      }
+
+      Shipment
+        .find({user: req.user, _id: {$ne: id}})
+        .sort({updated: -1})
+        .limit(10)
+        .exec(function (err, lastShipments) {
+          res.render('shipment/edit', {shipment: shipment, lastShipments: lastShipments});
+        });
+
+    });
 });
 
 
 router.get('/create', checkAuth.shipper, function (req, res, next) {
-  res.render('shipment/create');
+  Shipment
+    .find({user: req.user})
+    .sort({updated: -1})
+    .limit(10)
+    .exec(function (err, lastShipments) {
+      res.render('shipment/create', {lastShipments: lastShipments});
+    });
 });
 
 
-router.post('/create', checkAuth.shipper, function (req, res, next) {
+router.post('/', checkAuth.shipper, function (req, res, next) {
   var body = req.body;
   body.user = req.user._id;
-  var newShipment = new Shipment(body);
-  newShipment.save(function (err, shipment) {
-    res.send({valid: true, id: shipment._id});
-  });
+  if (body.id) {
+    try {
+      var id = new ObjectId(body.id);
+    } catch (e) {
+      next();
+      return;
+    }
+    if (!body.vehicle) body.vehicle = false;
+    if (!body.door_pickup) body.door_pickup = false;
+    if (!body.door_delivery) body.door_delivery = false;
+    if (!body.packaging_service) body.packaging_service = false;
+    if (!body.transit_insurance) body.transit_insurance = false;
+    if (!body.warehousing) body.size = '';
+    body.updated = Date.now();
+    Shipment.findByIdAndUpdate(id, {$set: body}).exec(function (err, shipment) {
+      res.send({valid: true, id: shipment._id});
+    });
+  } else {
+    var newShipment = new Shipment(body);
+    newShipment.save(function (err, shipment) {
+      res.send({valid: true, id: shipment._id});
+    });
+  }
 });
 
 module.exports = router;

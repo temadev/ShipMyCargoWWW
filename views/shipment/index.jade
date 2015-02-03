@@ -1,0 +1,47 @@
+extends ../layouts/main
+block meta
+   title Last Searches
+block content
+   .content
+      .page-header
+         h1 Last Searches
+      each shipment in shipments
+         .panel.panel-default
+            .panel-heading: a(href='/shipment/#{shipment._id}') ORDER #{showTime(shipment.created)}
+            table.table.table-condensed.table-hover
+               tr
+                  td Shipper
+                  td(style='width: 70%'): a(href='/users/#{shipment.user._id}') #{shipment.user.firstname} #{shipment.user.lastname}
+               tr
+                  td Dispatch
+                  td= shipment.dispatch
+               tr
+                  td Booking Point
+                  td= shipment.booking_point
+               tr
+                  td Delivery Point
+                  td= shipment.delivery_point
+               tr
+                  td Weight
+                  td= shipment.weight
+               tr
+                  td Godown/Warehouse
+                  td= shipment.size
+               tr
+                  td Payment Terms
+                  td= shipment.payment
+               tr
+                  td Closed Body Vehicle
+                  td= shipment.vehicle?'yes':'no'
+               tr
+                  td Door Pickup
+                  td= shipment.door_pickup?'yes':'no'
+               tr
+                  td Door Delivery
+                  td= shipment.door_delivery?'yes':'no'
+               tr
+                  td Packaging Services Required
+                  td= shipment.packaging_service?'yes':'no'
+               tr
+                  td Transit Insurance Required
+                  td= shipment.transit_insurance?'yes':'no'

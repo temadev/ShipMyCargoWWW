@@ -8,11 +8,14 @@ var express = require('express')
   , Person = require('models/Person')
   , User = require('models/User');
 
-/* GET companys listing. */
-router.get('/', function (req, res, next) {
-  Company.find({}).exec(function (err, companys) {
-    res.send(companys);
-  });
+
+router.get('/', checkAuth.carrier, function (req, res, next) {
+  Company.find({})
+    .sort({name: 1})
+    .populate('user', 'email username phone firstname lastname')
+    .exec(function (err, companies) {
+      res.render('company', {companies: companies});
+    });
 });
 
 /* GET company by id. */
@@ -25,7 +28,7 @@ router.get('/:id', function (req, res, next) {
   }
 
   Company.findById(id)
-    .populate('user', 'email username firstname lastname')
+    .populate('user', 'email username phone firstname lastname')
     .exec(function (err, company) {
       if (err) throw err;
       if (!company) {
@@ -33,7 +36,7 @@ router.get('/:id', function (req, res, next) {
         return;
       }
       Person.find({company: company._id}, 'firstname lastname email phone designation').exec(function (err, persons) {
-        res.send({company: company, persons: persons});
+        res.render('company/view', {company: company, persons: persons});
       });
     });
 
@@ -64,6 +67,21 @@ router.post('/create', checkAuth.carrier, function (req, res, next) {
     }, function () {
       res.send({valid: true, id: company._id});
     });
+  });
+
+});
+
+
+router.post('/remove', checkAuth.carrier, function (req, res, next) {
+  try {
+    var id = new ObjectId(req.body.id);
+  } catch (e) {
+    next();
+    return;
+  }
+
+  Company.findByIdAndRemove(id).exec(function () {
+    res.send({valid: true});
   });
 
 });

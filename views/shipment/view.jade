@@ -1,0 +1,102 @@
+extends ../layouts/main
+block meta
+  title #{shipment.booking_point} → #{shipment.delivery_point}
+block content
+  .page-header
+    h1 #{shipment.booking_point} <i class="fa fa-long-arrow-right"></i> #{shipment.delivery_point}
+      a.btn.btn-default(href='/shipment/#{shipment._id}/edit', style='margin-top: -7px; margin-left: 14px;')
+        i.fa.fa-edit
+        | &nbsp;Modify Search
+      br
+      small
+        a(href='#'): i.fa.fa-caret-left
+        | &nbsp;#{showTime(shipment.updated)}&nbsp;
+        a(href='#'): i.fa.fa-caret-right
+
+  .row
+    .col-md-8
+      .panel.panel-default.hidden
+        table.table.table-condensed.table-hover
+          tr
+            td Shipper
+            td(style='width: 70%'): a(href='/users/#{shipment.user._id}') #{shipment.user.firstname} #{shipment.user.lastname}
+          tr
+            td Dispatch
+            td= shipment.dispatch
+          tr
+            td Weight
+            td= shipment.weight
+          tr
+            td Godown/Warehouse
+            td= shipment.size
+          tr
+            td Payment Terms
+            td= shipment.payment
+          tr
+            td Closed Body Vehicle
+            td= shipment.vehicle ? 'yes' : 'no'
+          tr
+            td Door Pickup
+            td= shipment.door_pickup ? 'yes' : 'no'
+          tr
+            td Door Delivery
+            td= shipment.door_delivery ? 'yes' : 'no'
+          tr
+            td Packaging Services Required
+            td= shipment.packaging_service ? 'yes' : 'no'
+          tr
+            td Transit Insurance Required
+            td= shipment.transit_insurance ? 'yes' : 'no'
+
+      each company in companies
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title
+              a(href='/company/#{company._id}')= company.name
+          table.table.table-condensed.table-hover
+            tr
+              td Address
+              td(style='width: 70%')= company.address
+            tr
+              td Year
+              td= company.year
+            tr
+              td Website
+              td= company.website
+            tr
+              td Phone
+              td= company.user.phone
+            tr
+              td
+              td: a.btn.btn-primary(href='#', data-toggle='modal', data-target='#modalEnquiry') Send Enquiry
+
+    .col-md-3.col-md-offset-1
+
+block body_child
+  #modalEnquiry.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalLabel', aria-hidden='true')
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close'): i.fa.fa-times
+          h4.modal-title Send Email Enquiry
+        .modal-body
+          form#enquiryForm.form-horizontal(role='form', name='shipment-form')
+            .form-group
+              label.col-lg-3.control-label(for='requirement') Descripe Your requirement
+              .col-lg-6
+                textarea.form-control#requirement(name='requirement', rows='4')
+            .form-group
+              label.col-lg-3.control-label(for='email') Email address
+              .col-lg-6
+                input.form-control#email(type='email', name='email', placeholder='Email address')
+            .form-group
+              label.col-lg-3.control-label(for='phone') Phone number
+              .col-lg-6
+                input.form-control#phone(type='phone', name='phone', placeholder='Phone number')
+            .form-group
+              label.col-lg-3.control-label(for='name') Name
+              .col-lg-6
+                input.form-control#name(type='text', name='name', placeholder='Your Name')
+            .form-group
+              .col-lg-offset-3.col-lg-6
+                button.btn.btn-primary(type='submit') Send Enquiry

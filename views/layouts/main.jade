@@ -17,3 +17,5 @@ html(lang='en')
     block body_child
     include ../partials/scripts
     block page_scripts
+    - function addZ(n){return n<10? '0'+n:''+n;}
+    - function showTime(date){return date.getFullYear()+'/'+addZ(date.getMonth()+1)+'/'+addZ(date.getDate())+' '+addZ(date.getHours())+':'+addZ(date.getMinutes())}

@@ -4,7 +4,26 @@ var express = require('express')
 
 
 router.get('/', function(req, res, next) {
-		res.render('index', { title: 'Ship Anything, Anytime, Anywhere' })
+	if (req.user) {
+		if (req.user.role === 'shipper') {
+			res.redirect('/shipment/create');
+			return;
+		}
+		if (req.user.role === 'carrier') {
+			res.redirect('/shipment');
+			return;
+		}
+		if (req.user.role === 'admin') {
+			res.redirect('/shipment');
+		}
+	} else {
+		next();
+	}
+});
+
+
+router.post('/enquiry', function(req, res, next) {
+	res.send();
 });
 
 /* GET user by id. */
