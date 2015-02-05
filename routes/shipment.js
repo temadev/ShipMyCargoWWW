@@ -20,7 +20,7 @@ router.get('/', checkAuth.carrier, function (req, res, next) {
 });
 
 
-router.get('/:id', checkAuth.shipper, checkAuth.carrier, function (req, res, next) {
+router.get('/:id', function (req, res, next) {
   try {
     var id = new ObjectId(req.params.id);
   } catch (e) {
@@ -58,7 +58,7 @@ router.get('/:id', checkAuth.shipper, checkAuth.carrier, function (req, res, nex
 });
 
 
-router.get('/:id/edit', checkAuth.shipper, checkAuth.carrier, function (req, res, next) {
+router.get('/:id/edit', checkAuth.shipper, function (req, res, next) {
   try {
     var id = new ObjectId(req.params.id);
   } catch (e) {
@@ -97,31 +97,35 @@ router.get('/create', checkAuth.shipper, function (req, res, next) {
 });
 
 
-router.post('/', checkAuth.shipper, function (req, res, next) {
-  var body = req.body;
-  body.user = req.user._id;
-  if (body.id) {
-    try {
-      var id = new ObjectId(body.id);
-    } catch (e) {
-      next();
-      return;
+router.post('/', function (req, res, next) {
+  if (req.user) {
+    var body = req.body;
+    body.user = req.user._id;
+    if (body.id) {
+      try {
+        var id = new ObjectId(body.id);
+      } catch (e) {
+        next();
+        return;
+      }
+      if (!body.vehicle) body.vehicle = false;
+      if (!body.door_pickup) body.door_pickup = false;
+      if (!body.door_delivery) body.door_delivery = false;
+      if (!body.packaging_service) body.packaging_service = false;
+      if (!body.transit_insurance) body.transit_insurance = false;
+      if (!body.warehousing) body.size = '';
+      body.updated = Date.now();
+      Shipment.findByIdAndUpdate(id, {$set: body}).exec(function (err, shipment) {
+        res.send({valid: true, id: shipment._id});
+      });
+    } else {
+      var newShipment = new Shipment(body);
+      newShipment.save(function (err, shipment) {
+        res.send({valid: true, id: shipment._id});
+      });
     }
-    if (!body.vehicle) body.vehicle = false;
-    if (!body.door_pickup) body.door_pickup = false;
-    if (!body.door_delivery) body.door_delivery = false;
-    if (!body.packaging_service) body.packaging_service = false;
-    if (!body.transit_insurance) body.transit_insurance = false;
-    if (!body.warehousing) body.size = '';
-    body.updated = Date.now();
-    Shipment.findByIdAndUpdate(id, {$set: body}).exec(function (err, shipment) {
-      res.send({valid: true, id: shipment._id});
-    });
   } else {
-    var newShipment = new Shipment(body);
-    newShipment.save(function (err, shipment) {
-      res.send({valid: true, id: shipment._id});
-    });
+    res.send({valid: false, login: true});
   }
 });
 

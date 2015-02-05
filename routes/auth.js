@@ -5,7 +5,8 @@ var express = require('express')
   , User = require('models/User');
 
 var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
+  , LocalStrategy = require('passport-local').Strategy
+  , FacebookStrategy = require('passport-facebook').Strategy;
 
 passport.use(new LocalStrategy({
     usernameField: 'email'
@@ -28,6 +29,28 @@ passport.use(new LocalStrategy({
   }
 ));
 
+passport.use(new FacebookStrategy({
+    clientID: '687296281382675',
+    clientSecret: '2dda7c2c95916200b923c90cbb92693a',
+    callbackURL: "http://localhost:2000/auth/facebook/callback"
+  },
+  function (accessToken, refreshToken, profile, done) {
+    User.findOne({facebook: profile.id}).exec(function (err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (user) {
+        done(null, user);
+      } else {
+        var newUser = new User({facebook: profile.id, firstname: profile.name.givenName, lastname: profile.name.familyName, status: false});
+        newUser.save(function (err, user) {
+          done(null, user);
+        });
+      }
+    });
+  }
+));
+
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
@@ -37,6 +60,13 @@ passport.deserializeUser(function (id, done) {
     done(err, user);
   });
 });
+
+router.get('/facebook', passport.authenticate('facebook'));
+router.get('/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/auth/login'
+  }));
 
 
 router.post('/getUser', function (req, res, next) {
@@ -158,25 +188,27 @@ router.post('/logout', function (req, res, next) {
 
 router.get('/login', function (req, res, next) {
   if (!req.user) {
-    if (req.xhr) {
-      res.render('auth/login_modal');
-    } else {
-      res.render('auth/login');
-    }
+    //if (req.xhr) {
+    //  res.render('auth/login_modal');
+    //} else {
+    //  res.render('auth/login');
+    //}
+    res.render('auth/login');
   } else {
-    res.redirect('/');
+    res.redirect('/profile');
   }
 });
 
 router.get('/register', function (req, res, next) {
   if (!req.user) {
-    if (req.xhr) {
-      res.render('auth/login_modal');
-    } else {
-      res.render('auth/register');
-    }
+    //if (req.xhr) {
+    //  res.render('auth/login_modal');
+    //} else {
+    //  res.render('auth/register');
+    //}
+    res.render('auth/register');
   } else {
-    res.redirect('/');
+    res.redirect('/profile');
   }
 });
 

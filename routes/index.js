@@ -1,45 +1,44 @@
 var express = require('express')
-	, router = express.Router()
-	, User = require('models/User');
+  , router = express.Router()
+  , Shipment = require('models/Shipment')
+  , User = require('models/User');
 
 
-router.get('/', function(req, res, next) {
-	if (req.user) {
-		if (req.user.role === 'shipper') {
-			res.redirect('/shipment/create');
-			return;
-		}
-		if (req.user.role === 'carrier') {
-			res.redirect('/shipment');
-			return;
-		}
-		if (req.user.role === 'admin') {
-			res.redirect('/shipment');
-		}
-	} else {
-		next();
-	}
+router.get('/', function (req, res, next) {
+  if (req.user) {
+    Shipment
+      .find({user: req.user})
+      .sort({updated: -1})
+      .limit(10)
+      .exec(function (err, lastShipments) {
+        res.render('shipment/create', {lastShipments: lastShipments});
+      });
+  } else {
+    res.render('shipment/create');
+  }
 });
 
 
-router.post('/enquiry', function(req, res, next) {
-	res.send();
+router.post('/enquiry', function (req, res, next) {
+  res.send();
 });
 
-/* GET user by id. */
+
 router.get('/profile', function (req, res, next) {
-	if (req.user) {
-		User.findById(req.user._id).exec(function (err, user) {
-			if (err) throw err;
-			if (!user) {
-				next();
-				return;
-			}
-			res.send(user);
-		});
-	} else {
-		next();
-	}
+  if (req.user) {
+    User.findById(req.user._id).exec(function (err, profile) {
+      res.render('profile', {profile: profile});
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+
+router.post('/profile', function (req, res, next) {
+  User.findByIdAndUpdate(req.user._id, {$set: req.body}).exec(function (err, user) {
+    res.send({valid: true});
+  });
 });
 
 module.exports = router;

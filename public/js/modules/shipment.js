@@ -60,6 +60,9 @@
             if (result.valid === true) {
               window.location.href = '/shipment/' + result.id;
             }
+            if (result.login) {
+              window.location.href = '/auth/login';
+            }
           }
         });
 
