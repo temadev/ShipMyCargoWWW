@@ -32,7 +32,7 @@ passport.use(new LocalStrategy({
 passport.use(new FacebookStrategy({
     clientID: '687296281382675',
     clientSecret: '2dda7c2c95916200b923c90cbb92693a',
-    callbackURL: "http://localhost:2000/auth/facebook/callback"
+    callbackURL: "http://shipmycargo.herokuapp.com/auth/facebook/callback"
   },
   function (accessToken, refreshToken, profile, done) {
     User.findOne({facebook: profile.id}).exec(function (err, user) {
