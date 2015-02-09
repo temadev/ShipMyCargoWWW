@@ -10,7 +10,7 @@ var userSchema = new Schema({
     unique: true,
     lowercase: true
   },
-  facebook: {type: String, unique: true},
+  facebook: {type: String},
   username: {type: String, lowercase: true},
   firstname: {type: String},
   lastname: {type: String},
