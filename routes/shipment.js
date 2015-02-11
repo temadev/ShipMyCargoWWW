@@ -37,15 +37,45 @@ router.get('/:id', function (req, res, next) {
         return;
       }
 
-      var request = {};
-
       console.log(shipment);
 
-      //if (shipment.vehicle) request.vehicle = shipment.vehicle;
-      if (shipment.door_puckup) request.door_puckup = shipment.door_puckup;
-      if (shipment.door_delivery) request.door_delivery = shipment.door_delivery;
-      if (shipment.packaging_service) request.packaging_service = shipment.packaging_service;
-      if (shipment.transit_insurance) request.transit_insurance = shipment.transit_insurance;
+      var dispatch_regex = new RegExp(shipment.dispatch, 'i')
+        , booking_regex = new RegExp(shipment.booking_point, 'i')
+        , delivery_regex = new RegExp(shipment.delivery_point, 'i');
+
+
+      // From To
+      var request = {
+        product: dispatch_regex,
+        $and: [
+          {
+            $or: [
+              {delivery_points: delivery_regex},
+              {delivery_points: null},
+              {delivery_points: ''},
+              {delivery_points: 'all'}
+            ]
+          },
+          {
+            $or: [
+              {booking_points: booking_regex},
+              {booking_points: null},
+              {booking_points: ''},
+              {booking_points: 'all'}
+            ]
+          }
+        ]
+      };
+
+      if (shipment.weight) request.weight = {$lte: shipment.weight}; // Weight
+      if (shipment.payment && shipment.payment.length > 0) request.payment = {$in: shipment.payment}; // Payment Terms
+
+      if (shipment.vehicle) request.vehicle_closed = shipment.vehicle; // Closed Body Vehicle
+      if (shipment.door_puckup) request.door_puckup = shipment.door_puckup; // Door Pickup
+      if (shipment.door_delivery) request.door_delivery = shipment.door_delivery; // Door Delivery
+      if (shipment.packaging_service) request.packaging_service = shipment.packaging_service; // Packaging Services Required
+      if (shipment.transit_insurance) request.transit_insurance = shipment.transit_insurance; // Transit Insurance Required
+      if (shipment.size) request.size = {$gte: shipment.size}; // Warehousing Required (Godown/Warehouse)
 
       Company
         .find(request)
@@ -98,6 +128,7 @@ router.get('/create', checkAuth.shipper, function (req, res, next) {
 
 
 router.post('/', function (req, res, next) {
+  //console.log(req.body);
   if (req.user) {
     var body = req.body;
     body.user = req.user._id;

@@ -11,12 +11,12 @@ router.get('/cities', function (req, res) {
   City
     .find({title: regex})
     .sort({'title': 1})
-    .limit(10)
     .exec(function (err, cities) {
       async.each(cities, function (city, cb) {
         var curCity = {
           data: city._id,
-          value: city.title + ' (' + city.state + ')'
+          //value: city.title + ' (' + city.state + ')'
+          value: city.title
         };
         suggestions.push(curCity);
         cb();

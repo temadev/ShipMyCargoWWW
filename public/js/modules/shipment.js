@@ -12,6 +12,8 @@
       }
     });
 
+    $('#payment').multiselect();
+
   });
 
   $(function () {
@@ -38,6 +40,20 @@
           validators: {
             notEmpty: {
               message: 'Please enter your Delivery Point.'
+            }
+          }
+        },
+        weight: {
+          validators: {
+            numeric: {
+              message: 'Please enter correct Weight.'
+            }
+          }
+        },
+        size: {
+          validators: {
+            numeric: {
+              message: 'Please enter correct Size.'
             }
           }
         }

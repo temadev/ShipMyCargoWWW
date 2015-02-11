@@ -48,27 +48,30 @@ block content
             td Transit Insurance Required
             td= shipment.transit_insurance ? 'yes' : 'no'
 
-      each company in companies
-        .panel.panel-default
-          .panel-heading
-            h3.panel-title
-              a(href='/company/#{company._id}')= company.name
-          table.table.table-condensed.table-hover
-            tr
-              td Address
-              td(style='width: 70%')= company.address
-            tr
-              td Year
-              td= company.year
-            tr
-              td Website
-              td= company.website
-            tr
-              td Phone
-              td= company.user.phone
-            tr
-              td
-              td: a.btn.btn-primary(href='#', data-toggle='modal', data-target='#modalEnquiry') Send Enquiry
+      if companies && companies.length > 0
+        each company in companies
+          .panel.panel-default
+            .panel-heading
+              h3.panel-title
+                a(href='/company/#{company._id}')= company.name
+            table.table.table-condensed.table-hover
+              tr
+                td Address
+                td(style='width: 70%')= company.address
+              tr
+                td Year
+                td= company.year
+              tr
+                td Website
+                td= company.website
+              tr
+                td Phone
+                td= company.user.phone
+              tr
+                td
+                td: a.btn.btn-primary(href='#', data-toggle='modal', data-target='#modalEnquiry') Send Enquiry
+      else
+        p.lead Nothing found, please try again
 
     .col-md-3.col-md-offset-1
 

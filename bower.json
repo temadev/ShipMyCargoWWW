@@ -20,6 +20,7 @@
     "modernizr": "~2.8.3",
     "fontawesome": "~4.3.0",
     "jquery-serialize-object": "~2.4.5",
-    "devbridge-autocomplete": "~1.2.16"
+    "devbridge-autocomplete": "~1.2.16",
+    "bootstrap-multiselect": "~0.9.10"
   }
 }
