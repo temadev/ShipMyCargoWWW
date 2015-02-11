@@ -145,6 +145,7 @@ router.post('/', function (req, res, next) {
       if (!body.packaging_service) body.packaging_service = false;
       if (!body.transit_insurance) body.transit_insurance = false;
       if (!body.warehousing) body.size = '';
+      if (!body.payment) body.payment = [];
       body.updated = Date.now();
       Shipment.findByIdAndUpdate(id, {$set: body}).exec(function (err, shipment) {
         res.send({valid: true, id: shipment._id});
