@@ -7,7 +7,6 @@ var mongoose = require('lib/mongoose')
 var userSchema = new Schema({
   email: {
     type: String,
-    unique: true,
     lowercase: true
   },
   facebook: {type: String},
