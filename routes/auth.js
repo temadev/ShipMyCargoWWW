@@ -36,6 +36,7 @@ passport.use(new FacebookStrategy({
     callbackURL: "http://shipmycargo.herokuapp.com/auth/facebook/callback"
   },
   function (accessToken, refreshToken, profile, done) {
+    console.log(profile);
     User.findOne({facebook: profile.id}).exec(function (err, user) {
       if (err) {
         return done(err);
