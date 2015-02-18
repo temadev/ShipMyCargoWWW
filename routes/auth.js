@@ -58,6 +58,8 @@ passport.use(new GoogleStrategy({
     callbackURL: 'http://shipmycargo.herokuapp.com/auth/google/callback'
   },
   function(identifier, profile, done) {
+    console.log(identifier);
+    console.log(profile);
     User.findOne({email: profile.emails[0].value}).exec(function (err, user) {
       if (err) {
         return done(err);
