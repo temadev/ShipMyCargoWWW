@@ -6,7 +6,8 @@ var express = require('express')
 
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
-  , FacebookStrategy = require('passport-facebook').Strategy;
+  , FacebookStrategy = require('passport-facebook').Strategy
+  , GoogleStrategy = require('passport-google').Strategy;
 
 passport.use(new LocalStrategy({
     usernameField: 'email'
@@ -51,6 +52,27 @@ passport.use(new FacebookStrategy({
   }
 ));
 
+passport.use(new GoogleStrategy({
+    returnURL: 'http://shipmycargo.herokuapp.com/auth/google/callback',
+    realm: 'http://shipmycargo.herokuapp.com/'
+  },
+  function(identifier, profile, done) {
+    User.findOne({email: profile.emails[0].value}).exec(function (err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (user) {
+        done(null, user);
+      } else {
+        var newUser = new User({email: profile.emails[0].value, firstname: profile.name.givenName, lastname: profile.name.familyName, status: false});
+        newUser.save(function (err, user) {
+          done(null, user);
+        });
+      }
+    });
+  }
+));
+
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
@@ -68,6 +90,12 @@ router.get('/facebook/callback',
     failureRedirect: '/auth/login'
   }));
 
+router.get('/google', passport.authenticate('google'));
+router.get('/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/auth/login'
+  }));
 
 router.post('/getUser', function (req, res, next) {
   if (req.body.loginEmail) {
