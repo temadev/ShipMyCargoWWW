@@ -27,6 +27,13 @@ var companySchema = new Schema({
   detention_charges: {type: Boolean},
   packaging_service: {type: Boolean},
   other: {type: String},
+  routes: {type: String},
+  images: {type: String},
+  latitude: {type: Number},
+  longtitude: {type: Number},
+  vehicles_count: {type: Number},
+  min_vehicle_capacity: {type: Number},
+  max_vehicle_capacity: {type: Number},
   created: {type: Date},
   updated: {type: Date},
   status: {type: Boolean, default: true}
