@@ -7,7 +7,7 @@ var express = require('express')
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
   , FacebookStrategy = require('passport-facebook').Strategy
-  , GoogleStrategy = require('passport-google').Strategy;
+  , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 passport.use(new LocalStrategy({
     usernameField: 'email'
@@ -53,8 +53,9 @@ passport.use(new FacebookStrategy({
 ));
 
 passport.use(new GoogleStrategy({
-    returnURL: 'http://shipmycargo.herokuapp.com/auth/google/callback',
-    realm: 'http://shipmycargo.herokuapp.com/'
+    clientID: process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+    callbackURL: 'http://shipmycargo.herokuapp.com/auth/google/callback'
   },
   function(identifier, profile, done) {
     User.findOne({email: profile.emails[0].value}).exec(function (err, user) {
@@ -90,7 +91,7 @@ router.get('/facebook/callback',
     failureRedirect: '/auth/login'
   }));
 
-router.get('/google', passport.authenticate('google'));
+router.get('/google', passport.authenticate('google', {scope: 'https://www.googleapis.com/auth/plus.me https://www.google.com/m8/feeds https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'}));
 router.get('/google/callback',
   passport.authenticate('google', {
     successRedirect: '/',
