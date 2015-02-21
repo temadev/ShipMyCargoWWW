@@ -33,7 +33,7 @@ passport.use(new LocalStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_SECRET,
-    callbackURL: "http://shipmycargo.herokuapp.com/auth/facebook/callback"
+    callbackURL: process.env.MAIN_DOMAIN + 'auth/facebook/callback'
   },
   function (accessToken, refreshToken, profile, done) {
     console.log(profile);
@@ -56,7 +56,7 @@ passport.use(new FacebookStrategy({
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_ID,
     clientSecret: process.env.GOOGLE_SECRET,
-    callbackURL: 'http://shipmycargo.herokuapp.com/auth/google/callback'
+    callbackURL: process.env.MAIN_DOMAIN + 'auth/google/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     console.log(profile);

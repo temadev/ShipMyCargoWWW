@@ -23,7 +23,7 @@ block content
                   td= company.website
                tr
                   td Phone
-                  td= company.user.phone
+                  td= company.user?company.user.phone:''
                tr
                   td
                   td: a.btn.btn-primary(href='/company/#{company._id}') Send Enquiry
