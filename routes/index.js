@@ -27,6 +27,11 @@ router.post('/enquiry', function (req, res, next) {
 });
 
 
+router.get('/about', function (req, res, next) {
+  res.render('page/about');
+});
+
+
 router.get('/profile', function (req, res, next) {
   if (req.user) {
     User.findById(req.user._id).exec(function (err, profile) {
