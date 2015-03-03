@@ -15,7 +15,7 @@ var userSchema = new Schema({
   lastname: {type: String},
   phone: {type: String},
   secret: {type: String},
-  role: {type: String, default: 'shipper'},
+  role: {type: String},
   hashedPassword: {type: String},
   salt: {type: String},
   ip: {type: String},

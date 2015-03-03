@@ -5,11 +5,12 @@ block content
   .request(style='margin-top: 40px')
     .page-header
       h2 Request Info
-    .alert.alert-info(role='alert')
-      //button.close(type='button', data-dismiss='alert', aria-label='Close'): span(aria-hidden='true') &times;
-      p.
-        Congratulations <strong>#{user ? user.firstname : ''}</strong> for successfully posting your requirement on ShipMyCargo!<br>
-        We would now be receiving relevant BIDS matching your request and shall keep you posted accordingly.
+    if !request.status
+      .alert.alert-info(role='alert')
+        button.close(type='button', data-dismiss='alert', aria-label='Close'): span(aria-hidden='true') &times;
+        p.
+          Congratulations <strong>#{user ? user.firstname : ''}</strong> for successfully posting your requirement on ShipMyCargo!<br>
+          We would now be receiving relevant BIDS matching your request and shall keep you posted accordingly.
     .row
       .col-lg-8
         .row

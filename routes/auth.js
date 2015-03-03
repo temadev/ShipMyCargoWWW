@@ -162,7 +162,7 @@ router.post('/login', function (req, res, next) {
       res.send({message: 'Wrong password'});
       return;
     }
-    if (!user.password || !user.checkPassword(password)) {
+    if (!user.hashedPassword || !user.checkPassword(password)) {
       res.send({message: 'Wrong password'});
       return;
     }

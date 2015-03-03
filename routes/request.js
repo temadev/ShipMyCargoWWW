@@ -55,6 +55,10 @@ router.get('/:id', checkAuth.user, function (req, res, next) {
   }
   Request.findById(id).exec(function (err, request) {
     res.render('request/view', {request: request});
+    if (!request.status) {
+      request.status = true;
+      request.save();
+    }
   });
 });
 

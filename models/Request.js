@@ -29,7 +29,7 @@ var requestSchema = new Schema({
   door_delivery: {type: Boolean},
   created: {type: Date},
   updated: {type: Date},
-  status: {type: Boolean, default: true}
+  status: {type: Boolean, default: false}
 });
 
 requestSchema.pre('save', function (next) {
