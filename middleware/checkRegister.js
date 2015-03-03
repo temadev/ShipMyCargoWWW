@@ -7,12 +7,11 @@ module.exports = function (req, res, next) {
   }
 
   User.findById(req.user).exec(function (err, user) {
-    if (user) {
-      user.ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-      user.updated = Date.now();
-      user.save();
-      res.locals.user = user;
+    if (!user.status) {
+      res.redirect('/auth/complete');
+    } else {
+      next();
     }
-    next();
   });
 };
+

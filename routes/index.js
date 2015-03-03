@@ -2,13 +2,14 @@ var express = require('express')
   , async = require('async')
   , mongoose = require('lib/mongoose')
   , checkAuth = require('middleware/checkAuth')
+  , checkRegister = require('middleware/checkRegister')
   , router = express.Router()
   , Shipment = require('models/Shipment')
   , User = require('models/User')
   , City = require('models/City');
 
 
-router.get('/', function (req, res, next) {
+router.get('/', checkRegister, function (req, res, next) {
   res.render('index');
 });
 

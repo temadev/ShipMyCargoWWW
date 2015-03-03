@@ -8,19 +8,17 @@ block content
         .col-md-8.col-md-offset-2
           .page-content
             .page-header
-              h1 Complete Registration
+              h1 Complete Your Registration
             form#completeForm.form-horizontal(role='form', name='complete-form')
-              if !user.email
-                .form-group
-                  label.col-lg-3.control-label(for='completeEmail') Email address
-                  .col-lg-6
-                    input.form-control#completeEmail(type='email', name='email', placeholder='Email address')
-              if !user.phone
-                .form-group
-                  label.col-lg-3.control-label(for='completePhone') Phone number
-                  .col-lg-6
-                    input.form-control#completePhone(type='phone', name='phone', placeholder='Phone number')
-              if !user.password
+              .form-group
+                label.col-lg-3.control-label(for='completeEmail') Email address
+                .col-lg-6
+                  input.form-control#completeEmail(type='email', name='email', placeholder='Email address', value='#{user.email?user.email:""}')
+              .form-group
+                label.col-lg-3.control-label(for='completePhone') Phone number
+                .col-lg-6
+                  input.form-control#completePhone(type='phone', name='phone', placeholder='Phone number', value='#{user.phone?user.phone:""}')
+              if !user.hashedPassword
                 .form-group
                   label.col-lg-3.control-label(for='completePassword') Create a Password
                   .col-lg-6
