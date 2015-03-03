@@ -178,15 +178,6 @@
               },
               emailAddress: {
                 message: 'Please enter a valid email address.'
-              },
-              remote: {
-                type: 'POST',
-                url: '/auth/checkRegister',
-                data: function (validator) {
-                  return {
-                    email: validator.getFieldElements('email').val()
-                  };
-                }
               }
             }
           },
