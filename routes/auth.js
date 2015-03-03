@@ -158,7 +158,11 @@ router.post('/login', function (req, res, next) {
       res.send(err);
       return;
     }
-    if (!user || !user.checkPassword(password)) {
+    if (!user) {
+      res.send({message: 'Wrong password'});
+      return;
+    }
+    if (!user.password || !user.checkPassword(password)) {
       res.send({message: 'Wrong password'});
       return;
     }
@@ -212,6 +216,37 @@ router.post('/register', function (req, res, next) {
   });
 });
 
+router.post('/complete', function (req, res, next) {
+  if (req.body.email) {
+    req.body.email = req.body.email.toLowerCase();
+  }
+
+  var id = req.body.id
+    , email = req.body.email
+    , password = req.body.password
+    , phone = req.body.phone
+    , role = req.body.role || 'shipper'
+    , firstname = capitaliseFirst(req.body.firstname)
+    , lastname = capitaliseFirst(req.body.lastname);
+
+  User.findById(id, function (err, user) {
+    if (err) throw err;
+
+    user.email = email;
+    user.password = password;
+    user.phone = phone;
+    user.role = role;
+    user.firstname = firstname;
+    user.lastname = lastname;
+    user.status = true;
+
+    user.save(function (err, user) {
+      if (err) throw err;
+      res.send({valid: true});
+    })
+  });
+});
+
 router.post('/logout', function (req, res, next) {
   req.session.destroy();
   res.redirect('/');
@@ -240,6 +275,14 @@ router.get('/register', function (req, res, next) {
     res.render('auth/register');
   } else {
     res.redirect('/profile');
+  }
+});
+
+router.get('/complete', function (req, res, next) {
+  if (req.user) {
+    res.render('auth/complete');
+  } else {
+    res.redirect('/auth/login');
   }
 });
 

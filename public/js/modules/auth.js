@@ -17,7 +17,7 @@
           invalid: 'fa fa-times',
           validating: 'fa fa-refresh'
         },
-        live: 'submitted',
+        live: 'disabled',
         fields: {
           email: {
             validators: {
@@ -106,7 +106,7 @@
         invalid: 'fa fa-times',
         validating: 'fa fa-refresh'
       },
-      live: 'submitted',
+      live: 'disabled',
       fields: {
         loginEmail: {
           validators: {
@@ -155,6 +155,85 @@
           submitButton = validator.getSubmitButton();
 
         $.post('/auth/login', $form.serialize(), function (result) {
+          if (result.valid == true || result.valid == 'true') {
+            window.location.href = '/';
+          }
+        }, 'json');
+      });
+
+    $('#completeForm')
+      .bootstrapValidator({
+        container: 'tooltip',
+        feedbackIcons: {
+          valid: 'fa fa-check',
+          invalid: 'fa fa-times',
+          validating: 'fa fa-refresh'
+        },
+        live: 'disabled',
+        fields: {
+          email: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter a valid email address.'
+              },
+              emailAddress: {
+                message: 'Please enter a valid email address.'
+              },
+              remote: {
+                type: 'POST',
+                url: '/auth/checkRegister',
+                data: function (validator) {
+                  return {
+                    email: validator.getFieldElements('email').val()
+                  };
+                }
+              }
+            }
+          },
+          password: {
+            validators: {
+              notEmpty: {
+                message: 'Passwords must be at least 6 characters.'
+              },
+              stringLength: {
+                min: 6,
+                max: 20,
+                message: 'Passwords must be at least 6 characters.'
+              }
+            }
+          },
+          lastname: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your first name.'
+              }
+            }
+          },
+          firstname: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your last name.'
+              }
+            }
+          },
+          phone: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your phone number.'
+              }
+            }
+          }
+        }
+      })
+      .on('success.form.bv', function (e) {
+        // Prevent form submission
+        e.preventDefault();
+
+        var $form = $(e.target),
+          validator = $form.data('bootstrapValidator'),
+          submitButton = validator.getSubmitButton();
+
+        $.post('/auth/complete', $form.serialize(), function (result) {
           if (result.valid == true || result.valid == 'true') {
             window.location.href = '/';
           }

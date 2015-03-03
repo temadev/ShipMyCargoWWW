@@ -1,9 +1,6 @@
 #content {
   margin-top: 50px;
 }
-.form-horizontal .has-feedback .form-control-feedback {
-  top: 10px;
-}
 .jumbotron h1 {
   font-size: 48px;
   margin-bottom: 30px;
@@ -22,6 +19,20 @@
 }
 #footer .copyright {
   text-align: center;
+}
+#welcome {
+  border-bottom: 1px solid #D5D5D5;
+  padding-bottom: 48px;
+  margin-bottom: 48px;
+}
+#shipping {
+  height: 60px;
+  line-height: 60px;
+  font-size: 24px;
+}
+#items .radio {
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 .autocomplete-suggestions {
   border: 1px solid #999;

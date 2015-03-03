@@ -3,12 +3,33 @@ block meta
   title ShipMyCargo
 block content
   .jumbotron(style='margin-top: 40px')
-    h1= title
-    p What are you shipping?
-    .form-group
+    #welcome
+      h1.text-center Welcome to ShipMyCargo
       .row
-        .col-lg-6
-          select#shipping.form-control.input-lg
-            option(value='1') Household Goods
-            option(value='2') Household & Office Moves
-    a.btn.btn-success.btn-lg(href='#') Continue
+        .col-sm-6
+          h2 Carrier
+          ul
+            li Find optimum load to utilize your capacity
+            li Post your capacity
+            li Bid for loads
+        .col-sm-6
+          h2 Shipper
+          ul
+            li Find the cheapest and most efficient way of moving your consignment
+            li Post your load
+            li Find current capacities
+
+    select#shipping.form-control
+      option(selected='', disabled='') Select Category of Goods Movement
+      option(value='1') Part Load - Commercial Goods
+      option(value='2') Full Truck Load - Commercial Goods
+      option(value='3') Household Goods
+      option(value='4') Personal Vehicle (Motorcycle/Cycle)
+      option(value='5') Container Movement
+      option(value='6') Plant Machinery/Industrial Goods
+      option(value='7') Cold Chain Goods
+      option(value='8') Documents
+      option(value='9') Relocation
+
+
+  #formbox

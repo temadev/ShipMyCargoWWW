@@ -1,0 +1,145 @@
+form#shipmentForm(role='form', name='shipment-form')
+  .row
+    .col-lg-4
+      .form-group.form-group-lg
+        label.control-label(for='dispatch') Mode of Dispatch
+        select.form-control#dispatch(name='mode_of_dispatch')
+          each val in ['Road', 'Air', 'Rail']
+            option= val
+    .col-lg-4
+      .form-group.form-group-lg
+        label.control-label(for='nature') Nature of Movement
+        select.form-control#nature(name='nature_of_movement')
+          each val in ['Sale', 'Stock Transfer', 'Personal Goods']
+            option= val
+    .col-lg-4
+      .form-group.form-group-lg
+        label.control-label(for='pickupDate') Pickup Date
+        .datetimepicker.input-group
+          input.form-control#pickupDate(type='text', name='pickup_date')
+          span.input-group-addon
+            i.fa.fa-calendar
+
+  hr
+  .row
+    .col-lg-5
+      .row
+        .col-lg-8
+          .form-group.form-group-lg
+            label.control-label(for='bookingPoint') From
+            input.form-control.input-lg#bookingPoint(type='text', name='booking_point', placeholder='Booking City')
+        .col-lg-4
+          .form-group.form-group-lg
+            label.control-label(for='bookingPincode') Pincode
+            input.form-control#bookingPincode(type='text', name='booking_pincode', placeholder='Pincode')
+    .col-lg-2.text-center
+      i.fa.fa-4x.fa-long-arrow-right(style='margin-top: 20px;')
+    .col-lg-5
+      .row
+        .col-lg-8
+          .form-group.form-group-lg
+            label.control-label(for='deliveryPoint') To
+            input.form-control.input-lg#deliveryPoint(type='text', name='delivery_point', placeholder='Delivery City')
+        .col-lg-4
+          .form-group.form-group-lg
+            label.control-label(for='deliveryPincode') Pincode
+            input.form-control#deliveryPincode(type='text', name='delivery_pincode', placeholder='Pincode')
+
+  hr
+  .panel.panel-default
+    .panel-heading: h3.panel-title My Items
+    table#items.table.table-striped
+      thead
+        tr
+          th(style='width:34%') Handling Unit
+          th(style='width:9%') Length
+          th(style='width:9%') Breadth
+          th(style='width:9%') Height
+          th(style='width:12%') Measure
+          th(style='width:12%') Weight
+          th(style='width:10%') No of Units
+          th(style='width:5%')
+      tbody
+      tfoot
+        tr
+          td(colspan='8')
+            a.btn.btn-default#itemAdd(href='#')
+              i.fa.fa-plus
+              | &nbsp;Add Item
+
+  .form-horizontal(style='margin:0 15px;')
+    .row
+      .col-lg-8
+        .form-group.form-group-lg
+          label.col-md-3.col-md-offset-6.control-label(for='totalValue') Total Value of Goods
+          .col-md-3
+            .input-group
+              .input-group-addon $
+              input.form-control#totalValue(type='text', name='total_value', placeholder='Amount')
+      .col-lg-4
+        .row
+          .form-group.form-group-lg
+            label.col-md-7.control-label(for='totalWeight') Total Weight
+            .col-md-5
+              .input-group
+                input.form-control.text-right#totalWeight(type='text', name='total_weight', readonly)
+                .input-group-addon kg
+
+  hr
+  .row
+    .col-lg-8
+      .panel.panel-default
+        .panel-heading Pickup Requirements
+        .panel-body
+          ul.list-inline
+            li
+              .checkbox.c-checkbox
+                label
+                  input#permit(type='checkbox', name='permit')
+                  span.fa.fa-check
+                  | Permit Available
+            li
+              .checkbox.c-checkbox
+                label
+                  input#vehicle(type='checkbox', name='vehicle')
+                  span.fa.fa-check
+                  | Closed Body Vehicle
+            li
+              .checkbox.c-checkbox
+                label
+                  input#doorPickup(type='checkbox', name='door_pickup')
+                  span.fa.fa-check
+                  | Door Pickup
+            li
+              .checkbox.c-checkbox
+                label
+                  input#packagingService(type='checkbox', name='packaging_service')
+                  span.fa.fa-check
+                  | Packaging Services Required
+            li
+              .checkbox.c-checkbox
+                label
+                  input#transitInsurance(type='checkbox', name='transit_insurance')
+                  span.fa.fa-check
+                  | Transit Insurance Required
+    .col-lg-4
+      .panel.panel-default
+        .panel-heading Delivery Requirements
+        .panel-body
+          ul.list-inline
+            li
+              .checkbox.c-checkbox
+                label
+                  input#doorDelivery(type='checkbox', name='door_delivery')
+                  span.fa.fa-check
+                  | Door Delivery Required
+
+  .jumbotron
+    .text-center
+      button.btn.btn-lg.btn-primary(type='submit')
+        | Continue&nbsp;
+        i.fa.fa-long-arrow-right
+
+  span.help-block.error
+
+script(src='js/ajax/form_commercial.js')

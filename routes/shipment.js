@@ -128,7 +128,6 @@ router.get('/create', checkAuth.shipper, function (req, res, next) {
 
 
 router.post('/', function (req, res, next) {
-  //console.log(req.body);
   if (req.user) {
     var body = req.body;
     body.user = req.user._id;

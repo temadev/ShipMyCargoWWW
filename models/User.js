@@ -63,7 +63,7 @@ userSchema.statics.authorize = function (email, password, callback) {
     },
     function (user, callback) {
       if (user) {
-        if (user.checkPassword(password)) {
+        if (user.password && user.checkPassword(password)) {
           callback(null, user);
         } else {
           callback("Wrong Password");

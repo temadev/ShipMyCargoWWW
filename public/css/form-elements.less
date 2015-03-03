@@ -3,6 +3,7 @@
  ========================================================================== */
 
 @import "../components/bootstrap-multiselect/dist/less/bootstrap-multiselect";
+@import "../components/bs-datetimepicker/src/less/bootstrap-datetimepicker";
 
 /**
  * Custom form elements
@@ -181,14 +182,13 @@ input[type=radio]:disabled + span {
 // Support form feedback without labels
 .has-feedback {
   .form-control-feedback {
-    top: 7px;
+    //top: 7px;
   }
   .c-checkbox .form-control-feedback {
     top: -7px;
   }
 }
-.has-error .checkbox,
-.has-success .checkbox {
+.has-feedback .checkbox {
   color: inherit;
 }
 
@@ -198,5 +198,19 @@ input[type=radio]:disabled + span {
   }
   label + .form-control + & {
     top: 25px;
+  }
+}
+
+i.form-control-feedback.fa {
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+}
+
+.form-group-lg {
+  i.form-control-feedback.fa {
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
   }
 }

@@ -1,6 +1,7 @@
 var express = require('express')
   , async = require('async')
   , mongoose = require('lib/mongoose')
+  , checkAuth = require('middleware/checkAuth')
   , router = express.Router()
   , Shipment = require('models/Shipment')
   , User = require('models/User')
@@ -8,23 +9,28 @@ var express = require('express')
 
 
 router.get('/', function (req, res, next) {
-  if (req.user) {
-    Shipment
-      .find({user: req.user})
-      .sort({updated: -1})
-      .limit(10)
-      .exec(function (err, lastShipments) {
-        res.render('shipment/create', {lastShipments: lastShipments});
-      });
-  } else {
-    res.render('shipment/create');
-  }
+  res.render('index');
 });
 
 
-router.post('/enquiry', function (req, res, next) {
-  res.send();
+router.get('/form_commercial', function (req, res, next) {
+  res.render('form/commercial');
 });
+
+
+//router.get('/form2', function (req, res, next) {
+//  if (req.user) {
+//    Shipment
+//      .find({user: req.user})
+//      .sort({updated: -1})
+//      .limit(10)
+//      .exec(function (err, lastShipments) {
+//        res.render('shipment/create', {lastShipments: lastShipments});
+//      });
+//  } else {
+//    res.render('shipment/create');
+//  }
+//});
 
 
 router.get('/about', function (req, res, next) {
@@ -32,7 +38,7 @@ router.get('/about', function (req, res, next) {
 });
 
 
-router.get('/profile', function (req, res, next) {
+router.get('/profile', checkAuth.user, function (req, res, next) {
   if (req.user) {
     User.findById(req.user._id).exec(function (err, profile) {
       res.render('profile', {profile: profile});
@@ -43,7 +49,7 @@ router.get('/profile', function (req, res, next) {
 });
 
 
-router.post('/profile', function (req, res, next) {
+router.post('/profile', checkAuth.user, function (req, res, next) {
   User.findByIdAndUpdate(req.user._id, {$set: req.body}).exec(function (err, user) {
     res.send({valid: true});
   });

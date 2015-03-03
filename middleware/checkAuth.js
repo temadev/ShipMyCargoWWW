@@ -1,4 +1,16 @@
 module.exports = {
+  user: function (req, res, next) {
+    if (!req.isAuthenticated()) {
+      req.session.goingTo = req.url;
+      res.redirect('/auth/login');
+      return;
+    }
+    if (req.user) {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  },
   shipper: function (req, res, next) {
     if (!req.isAuthenticated()) {
       req.session.goingTo = req.url;

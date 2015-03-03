@@ -1,0 +1,35 @@
+extends ../layouts/main
+block meta
+  title My Dashboard
+block content
+  .dashboard(style='margin-top: 40px')
+    .page-header
+      h2 My Dashboard
+      p.
+        Hi, <strong>#{user ? user.firstname : ''}</strong>! Welcome to your Dashboard
+    .row
+      .col-lg-4
+        .list-group
+          a.list-group-item(href='/dashboard/current', class='#{(menu==="current")?"active":""}') My Current Requirements
+          a.list-group-item(href='/dashboard/closed', class='#{(menu==="closed")?"active":""}') Closed Requirements
+          a.list-group-item(href='/dashboard/available', class='#{(menu==="available")?"active":""}') Available Capacities
+
+      .col-md-8
+        table.table.table-striped
+          thead
+            tr
+              th Shipment ID
+              th Listing Date
+              th Last Date
+              th Bids
+              th Lowest Bid Freight
+              th Lowest Bid Transit Time
+          tbody
+            each request in requests
+              tr
+                td: a(href='/request/#{request._id}')= request._id
+                td #{showDate(request.created)}
+                td #{showDate(request.pickup_date)}
+                td
+                td
+                td

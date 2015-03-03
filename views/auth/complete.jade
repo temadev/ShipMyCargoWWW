@@ -1,0 +1,51 @@
+extends ../layouts/main
+block meta
+  title Registration
+block content
+  #block-page.content-block
+    .container
+      .row
+        .col-md-8.col-md-offset-2
+          .page-content
+            .page-header
+              h1 Complete Registration
+            form#completeForm.form-horizontal(role='form', name='complete-form')
+              if !user.email
+                .form-group
+                  label.col-lg-3.control-label(for='completeEmail') Email address
+                  .col-lg-6
+                    input.form-control#completeEmail(type='email', name='email', placeholder='Email address')
+              if !user.phone
+                .form-group
+                  label.col-lg-3.control-label(for='completePhone') Phone number
+                  .col-lg-6
+                    input.form-control#completePhone(type='phone', name='phone', placeholder='Phone number')
+              if !user.password
+                .form-group
+                  label.col-lg-3.control-label(for='completePassword') Create a Password
+                  .col-lg-6
+                    input.form-control#completePassword(type='password', name='password', placeholder='Create a Password')
+              if !user.role
+                hr
+                .form-group
+                  label.col-lg-3.control-label(for='role') Register as
+                  .col-lg-6
+                    select.form-control#role(name='role')
+                      option(value='shipper', selected) Shipping Customer
+                      option(value='carrier') Carrier
+              .form-group
+                label.col-lg-3.control-label(for='firstname') First name
+                .col-lg-6
+                  input.form-control#firstname(type='text', name='firstname', placeholder='First name', value='#{user.firstname?user.firstname:""}')
+              .form-group
+                label.col-lg-3.control-label(for='lastname') Last name
+                .col-lg-6
+                  input.form-control#lastname(type='text', name='lastname', placeholder='Last name', value='#{user.lastname?user.lastname:""}')
+              hr
+              .form-group
+                .col-lg-offset-3.col-lg-6
+                  #errors.hidden.text-danger.alert.alert-danger
+                  input(type='hidden', name='id', value='#{user._id}')
+                  button.btn.btn-primary(type='submit') Join ShipMyCargo
+                  p.text-muted By clicking Join&nbsp;ShipMyCargo, you accept the terms and conditions of the <a href="#">ShipMyCargo&nbsp;User&nbsp;Agreement</a>.
+            span.help-block.error
