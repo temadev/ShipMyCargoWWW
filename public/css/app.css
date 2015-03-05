@@ -8,7 +8,7 @@
 .jumbotron p {
   margin-bottom: 5px;
 }
-.jumbotron .btn {
+.jumbotron .btn-lg {
   padding: 14px 24px;
   font-size: 21px;
 }
@@ -21,11 +21,12 @@
   text-align: center;
 }
 #welcome {
-  border-bottom: 1px solid #D5D5D5;
   padding-bottom: 48px;
-  margin-bottom: 48px;
 }
 #shipping {
+  padding-top: 48px;
+}
+#shipping select {
   height: 60px;
   line-height: 60px;
   font-size: 24px;

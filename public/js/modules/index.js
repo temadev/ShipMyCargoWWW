@@ -1,6 +1,10 @@
 (function ($, window, document) {
   $(function () {
-    $('#shipping').on('change', function (e) {
+    $('#shippingBtn').on('click', function (e) {
+      e.preventDefault();
+      $('#shipping').fadeIn();
+    });
+    $('#shipping').find('select').on('change', function (e) {
       var $this = $(this)
         , formbox = $('#formbox');
       $('#welcome').fadeOut();

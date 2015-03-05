@@ -1,0 +1,24 @@
+extends ../layouts/main
+block meta
+  title Last Searches
+block content
+  .content
+    .page-header
+      h1 Last Searches
+  .row
+    .col-lg-4
+    .col-lg-8
+      table.table.table-striped
+        thead
+          tr
+            th title
+            th type
+            th weight
+            th «place bid» [button] (link to details)
+            th booking place
+            th booking date
+            th delivery place
+            th delivery date
+            th ending (days count)
+
+each request in requests

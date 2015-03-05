@@ -14,22 +14,32 @@ block content
             li Bid for loads
         .col-sm-6
           h2 Shipper
-          ul
-            li Find the cheapest and most efficient way of moving your consignment
-            li Post your load
-            li Find current capacities
+          ul.fa-ul
+            li
+              i.fa-li.fa.fa-check
+              | Find the cheapest and most efficient way of moving your consignment
+            li
+              i.fa-li.fa.fa-check
+              | Post your load
+            li
+              i.fa-li.fa.fa-check
+              | Find current capacities
+          p: a#shippingBtn.btn.btn-info(href='#')
+            i.fa.fa-check-square-o
+            | &nbsp;Post Your Load
 
-    select#shipping.form-control
-      option(selected='', disabled='') Select Category of Goods Movement
-      option(value='1') Part Load - Commercial Goods
-      option(value='2') Full Truck Load - Commercial Goods
-      option(value='3') Household Goods
-      option(value='4') Personal Vehicle (Motorcycle/Cycle)
-      option(value='5') Container Movement
-      option(value='6') Plant Machinery/Industrial Goods
-      option(value='7') Cold Chain Goods
-      option(value='8') Documents
-      option(value='9') Relocation
+    #shipping(style='display:none')
+      select.form-control
+        option(selected='', disabled='') Select Category of Goods Movement
+        option(value='1') Part Load - Commercial Goods
+        option(value='2') Full Truck Load - Commercial Goods
+        option(value='3') Household Goods
+        option(value='4') Personal Vehicle (Motorcycle/Cycle)
+        option(value='5') Container Movement
+        option(value='6') Plant Machinery/Industrial Goods
+        option(value='7') Cold Chain Goods
+        option(value='8') Documents
+        option(value='9') Relocation
 
 
   #formbox

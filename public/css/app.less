@@ -8,7 +8,7 @@
     margin-bottom: 30px;
   }
   p { margin-bottom: 5px; }
-  .btn {
+  .btn-lg {
     padding: 14px 24px;
     font-size: 21px;
   }
@@ -24,15 +24,19 @@
 }
 
 #welcome {
-  border-bottom: 1px solid #D5D5D5;
   padding-bottom: 48px;
-  margin-bottom: 48px;
+  & + #shipping {
+
+  }
 }
 
 #shipping {
-  height: 60px;
-  line-height: 60px;
-  font-size: 24px;
+  padding-top: 48px;
+  select {
+    height: 60px;
+    line-height: 60px;
+    font-size: 24px;
+  }
 }
 
 #items {

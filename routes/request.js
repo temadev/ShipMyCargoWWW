@@ -46,6 +46,14 @@ router.post('/', function (req, res, next) {
   }
 });
 
+
+router.get('/', checkAuth.user, function (req, res, next) {
+  Request.find({status: true}).exec(function (err, requests) {
+    res.render('request', {requests: requests});
+  });
+});
+
+
 router.get('/:id', checkAuth.user, function (req, res, next) {
   try {
     var id = new ObjectId(req.params.id);
