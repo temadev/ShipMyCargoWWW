@@ -1,0 +1,19 @@
+extends layouts/main
+block meta
+  title ShipMyCargo
+block content
+  .jumbotron(style='margin-top: 40px')
+    h2 What kind of Cargo would you like to move?
+    #shipping
+      select.form-control
+        option(selected='', disabled='') Select Category of Goods Movement
+        option(value='1') Part Load - Commercial Goods
+        option(value='2') Full Truck Load - Commercial Goods
+        option(value='3') Household Goods
+        option(value='4') Personal Vehicle (Motorcycle/Cycle)
+        option(value='5') Container Movement
+        option(value='6') Plant Machinery/Industrial Goods
+        option(value='7') Cold Chain Goods
+        option(value='8') Documents
+        option(value='9') Relocation
+  #formbox

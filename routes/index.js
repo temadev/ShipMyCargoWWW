@@ -14,6 +14,10 @@ router.get('/', checkRegister, function (req, res, next) {
   res.render('index');
 });
 
+router.get('/shipping', checkRegister, function (req, res, next) {
+  res.render('shipping');
+});
+
 
 router.get('/form_commercial', function (req, res, next) {
   res.render('form/commercial', {category: req.query.category});

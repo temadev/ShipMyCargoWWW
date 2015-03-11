@@ -9,10 +9,10 @@
 #navbar.collapse.navbar-collapse
   ul.nav.navbar-nav
     li.active: a(href='/') Home
-    li: a(href='/about') About
+    li: a(href='/about') About Us
   ul.nav.navbar-nav.navbar-right
     if (user)
-      li: a(href='/dashboard') Dashboard
+      li: a(href='/dashboard') My Dashboard
       li: a(href='/profile') #{userName(user)}
       li: a.logout(href='#', data-toggle="tooltip", data-placement="bottom", title="Sign Out"): i.fa.fa-sign-out
     else

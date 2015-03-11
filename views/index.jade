@@ -24,22 +24,9 @@ block content
             li
               i.fa-li.fa.fa-check
               | Find current capacities
-          p: a#shippingBtn.btn.btn-info(href='#')
+          p: a.btn.btn-info(href='/shipping')
             i.fa.fa-check-square-o
             | &nbsp;Post Your Load
-
-    #shipping(style='display:none')
-      select.form-control
-        option(selected='', disabled='') Select Category of Goods Movement
-        option(value='1') Part Load - Commercial Goods
-        option(value='2') Full Truck Load - Commercial Goods
-        option(value='3') Household Goods
-        option(value='4') Personal Vehicle (Motorcycle/Cycle)
-        option(value='5') Container Movement
-        option(value='6') Plant Machinery/Industrial Goods
-        option(value='7') Cold Chain Goods
-        option(value='8') Documents
-        option(value='9') Relocation
 
 
   #formbox
