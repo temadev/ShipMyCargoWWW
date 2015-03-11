@@ -12,7 +12,8 @@
     li: a(href='/about') About
   ul.nav.navbar-nav.navbar-right
     if (user)
-      li: a(href='/dashboard') #{userName(user)}
+      li: a(href='/dashboard') Dashboard
+      li: a(href='/profile') #{userName(user)}
       li: a.logout(href='#', data-toggle="tooltip", data-placement="bottom", title="Sign Out"): i.fa.fa-sign-out
     else
       li: a(href='/auth/login') Sign In

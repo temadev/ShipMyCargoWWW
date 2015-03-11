@@ -1,0 +1,253 @@
+extends ../layouts/main
+block meta
+  title Create Company
+block content
+  #block-page.content-block
+    .container
+      .row
+        .col-md-8.col-md-offset-2
+          .page-content
+            .page-header
+              h1 Create Company
+            form#carrierForm.form-horizontal(role='form', name='carrier-form')
+              .panel.panel-default
+                .panel-heading Company
+                .panel-body
+                  .form-group.form-group-lg
+                    label.col-lg-3.control-label(for='companyName') Company Name
+                    .col-lg-8
+                      input.form-control#companyName(type='text', name='name', placeholder='Company Name')
+                  .form-group
+                    label.col-lg-3.control-label(for='companyCountry') Country
+                    .col-lg-6
+                      select.form-control#companyCountry(name='country')
+                        option India
+                  .form-group
+                    label.col-lg-3.control-label(for='companyState') State
+                    .col-lg-6
+                      input.form-control#companyState(type='text', name='state', placeholder='State')
+                  .form-group
+                    label.col-lg-3.control-label(for='companyCity') City
+                    .col-lg-6
+                      input.form-control#companyCity(type='text', name='city', data-state='', placeholder='City')
+                  .form-group
+                    label.col-lg-3.control-label(for='companyAddress') Street Address
+                    .col-lg-6
+                      input.form-control#companyAddress(type='text', name='address', placeholder='Street Address')
+                  .form-group
+                    label.col-lg-3.control-label(for='companyZip') Zip Code
+                    .col-lg-3
+                      input.form-control#companyZip(type='text', name='zipcode', placeholder='Zip Code')
+                  .form-group
+                    label.col-lg-3.control-label(for='companyPhone') Phone
+                    .col-lg-3
+                      input.form-control#companyPhone(type='text', name='phone', placeholder='Phone')
+                  .form-group
+                    label.col-lg-3.control-label(for='year') Year Established
+                    .col-lg-2
+                      input.form-control#year(type='text', name='year', placeholder='eg. 2000')
+
+              .panel.panel-default
+                .panel-heading Details
+                .panel-body
+                  .form-group
+                    label.col-lg-3.control-label(for='website') Website
+                    .col-lg-6
+                      input.form-control#website(type='text', name='website', placeholder='www.company.com')
+                  .form-group
+                    label.col-lg-3.control-label(for='baseLocation') Base Location
+                    .col-lg-6
+                      input.form-control#baseLocation(type='text', name='location', placeholder='Base Location')
+                  .form-group
+                    label.col-lg-3.control-label(for='playerType') Type Of Player
+                    .col-lg-6
+                      select.form-control#playerType(name='player_type')
+                        option(selected, disabled) Type Of Player
+                        option National
+                        option Local
+                  .form-group
+                    label.col-lg-3.control-label Weight
+                    .col-lg-2
+                      input.form-control(type='text', name='min_weight', placeholder='Min')
+                    .col-lg-2
+                      input.form-control(type='text', name='max_weight', placeholder='Max')
+                  .form-group
+                    label.col-lg-3.control-label Max Dimension
+                    .col-lg-2
+                      input.form-control(type='text', name='length', placeholder='Length')
+                    .col-lg-2
+                      input.form-control(type='text', name='breadth', placeholder='Breadth')
+                    .col-lg-2
+                      input.form-control(type='text', name='height', placeholder='Height')
+
+                  .form-group
+                    label.col-lg-3.control-label Category
+                    .col-lg-6
+                      select.form-control#category(multiple='multiple', name='category[]')
+                        each cat, index in ['Part Load - Commercial Goods', 'Full Truck Load - Commercial Goods', 'Household Goods', 'Personal Vehicle (Motorcycle/Cycle)', 'Container Movement', 'Plant Machinery/Industrial Goods', 'Cold Chain Goods', 'Documents', 'Relocation']
+                          option(value='#{index+1}') #{cat}
+
+                  .form-group
+                    label.col-lg-3.control-label Vehicles
+                    .col-lg-6
+                      select.form-control#vehicles(multiple='multiple', name='vehicles[]')
+                        each vehicle, index in ['Closed Body', 'Dry Van']
+                          option(value='#{index+1}') #{vehicle}
+                  .form-group
+                    label.col-lg-3.control-label Vehicles Count
+                    .col-lg-2
+                      input.form-control(type='text', name='vehicles_count', placeholder='Vehicles Count')
+                  .form-group
+                    label.col-lg-3.control-label Min Vehicle Capacity
+                    .col-lg-2
+                      input.form-control(type='text', name='min_vehicle_capacity', placeholder='Min Vehicle Capacity')
+                  .form-group
+                    label.col-lg-3.control-label Max Vehicle Capacity
+                    .col-lg-2
+                      input.form-control(type='text', name='max_vehicle_capacity', placeholder='Max Vehicle Capacity')
+
+                  .form-group
+                    label.col-lg-3.control-label Payment
+                    .col-lg-6
+                      select.form-control#payment(multiple='multiple', name='payment[]')
+                        each payment, index in ['Booking', 'Delivery', 'Credit']
+                          option(value='#{index+1}') #{payment}
+
+                  .form-group
+                    .col-lg-offset-3.col-lg-9
+                      .checkbox.c-checkbox
+                        label
+                          input#transitInsurance(type="checkbox", name="transit_insurance")
+                          span.fa.fa-check
+                          | Transit Insurance Provided
+                  .form-group
+                    .col-lg-offset-3.col-lg-9
+                      .checkbox.c-checkbox
+                        label
+                          input#doorPickup(type="checkbox", name="door_pickup")
+                          span.fa.fa-check
+                          | Door Pickup
+                  .form-group
+                    .col-lg-offset-3.col-lg-9
+                      .checkbox.c-checkbox
+                        label
+                          input#doorDelivery(type="checkbox", name="door_delivery")
+                          span.fa.fa-check
+                          | Door Delivery
+                  .form-group
+                    .col-lg-offset-3.col-lg-9
+                      .checkbox.c-checkbox
+                        label
+                          input#detentionCharges(type="checkbox", name="detention_charges")
+                          span.fa.fa-check
+                          | Detention Charges
+                  .form-group
+                    .col-lg-offset-3.col-lg-9
+                      .checkbox.c-checkbox
+                        label
+                          input#packagingService(type="checkbox", name="packaging_service")
+                          span.fa.fa-check
+                          | Packaging Services Provided
+
+                  .form-group
+                    label.col-lg-3.control-label Other
+                    .col-lg-6
+                      textarea.form-control(name='other', rows='4')
+
+              .panel.panel-default
+                .panel-heading Persons
+                .panel-body
+                  .form-group.clonedInput#person1
+                    label.col-lg-3.control-label Contact Person
+                    .col-lg-6
+                      input.form-control#personFirstname1(type='text', name='person[0][firstname]', placeholder='Firstname')
+                    .col-lg-6.col-lg-offset-3
+                      input.form-control#personLastname1(type='text', name='person[0][lastname]', placeholder='Lastname')
+                    .col-lg-6.col-lg-offset-3
+                      input.form-control#personPhone1(type='text', name='person[0][phone]', placeholder='Phone')
+                    .col-lg-6.col-lg-offset-3
+                      input.form-control#personEmail1(type='email', name='person[0][email]', placeholder='Email')
+                    .col-lg-6.col-lg-offset-3
+                      input.form-control#personDesignation1(type='text', name='person[0][designation]', placeholder='Designation (Promoter/CEO/HOS/Contact)')
+                  .form-group
+                    .col-sm-4.col-sm-offset-2
+                      button#personAdd.btn.btn-default Add Person
+                      button#personDel.btn.btn-default Remove Person
+
+
+
+              .panel.panel-default
+                .panel-heading Booking Points
+                .panel-body
+                  .form-group
+                    label.col-lg-3.control-label(for='bookingPoints') Booking Points
+                    .col-lg-6
+                      input.form-control#bookingPoints(type='text', placeholder='Booking points')
+                  #bookingResults
+
+              .panel.panel-default
+                .panel-heading Delivery Points
+                .panel-body
+                  .form-group
+                    label.col-lg-3.control-label(for='deliveryPoints') Delivery Points
+                    .col-lg-6
+                      input.form-control#deliveryPoints(type='text', placeholder='Delivery points')
+                  #deliveryResults
+
+              .form-group
+                .col-lg-offset-3.col-lg-6
+                  #errors.hidden.text-danger.alert.alert-danger
+                  button.btn.btn-primary(type='submit') Continue
+            span.help-block.error
+
+block page_scripts
+  script.
+    var companyState = $('#companyState')
+      , companyCity = $('#companyCity');
+
+    companyState.autocomplete({
+      serviceUrl: '/api/states',
+      onSelect: function (suggestion) {
+        companyCity.data('state', suggestion.value);
+        companyCity.autocomplete({
+          serviceUrl: '/api/cities/' + companyCity.data('state')
+        });
+      }
+    });
+
+
+    $(document).on('click', '#bookingResults span, #deliveryResults span', function () {
+      $(this).remove();
+    });
+
+    $('#bookingPoints').autocomplete({
+      serviceUrl: '/api/cities',
+      onSelect: function (suggestion) {
+        $('#bookingResults').append('<span class="label label-primary">'+suggestion.value+'<input type="hidden" name="booking_points[]" value="'+suggestion.value+'"> [x]</span>');
+        $('#bookingPoints').val('');
+      }
+    });
+
+    $('#deliveryPoints').autocomplete({
+      serviceUrl: '/api/cities',
+      onSelect: function (suggestion) {
+        $('#deliveryResults').append('<span class="label label-primary">'+suggestion.value+'<input type="hidden" name="delivery_points[]" value="'+suggestion.value+'"> [x]</span>');
+        $('#deliveryPoints').val('');
+      }
+    });
+
+    $('#category').multiselect({
+      includeSelectAllOption: true,
+      selectAllValue: 'All',
+      numberDisplayed: 1
+    });
+    $('#vehicles').multiselect({
+      includeSelectAllOption: true,
+      selectAllValue: 'All',
+      numberDisplayed: 1
+    });
+    $('#payment').multiselect({
+      includeSelectAllOption: true,
+      selectAllValue: 'All',
+      numberDisplayed: 1
+    });

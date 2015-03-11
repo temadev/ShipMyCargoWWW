@@ -6,6 +6,7 @@ var express = require('express')
   , router = express.Router()
   , Shipment = require('models/Shipment')
   , User = require('models/User')
+  , Carrier = require('models/Carrier')
   , City = require('models/City');
 
 
@@ -15,7 +16,7 @@ router.get('/', checkRegister, function (req, res, next) {
 
 
 router.get('/form_commercial', function (req, res, next) {
-  res.render('form/commercial');
+  res.render('form/commercial', {category: req.query.category});
 });
 
 
@@ -42,7 +43,12 @@ router.get('/about', function (req, res, next) {
 router.get('/profile', checkAuth.user, function (req, res, next) {
   if (req.user) {
     User.findById(req.user._id).exec(function (err, profile) {
-      res.render('profile', {profile: profile});
+      Carrier.findOne({user: req.user._id}).exec(function (err, carrier) {
+        if (carrier)
+          res.render('profile', {profile: profile, carrier: carrier});
+        else
+          res.render('profile', {profile: profile});
+      });
     });
   } else {
     res.redirect('/');
@@ -1655,7 +1661,6 @@ router.get('/city_populate', function (req, res, next) {
     });
   });
 });
-
 
 
 module.exports = router;

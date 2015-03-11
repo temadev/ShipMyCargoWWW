@@ -3,6 +3,7 @@ var mongoose = require('lib/mongoose')
 
 var personSchema = new Schema({
   company: {type: Schema.Types.ObjectId, ref: 'Company'},
+  carrier: {type: Schema.Types.ObjectId, ref: 'Carrier'},
   firstname: {type: String},
   lastname: {type: String},
   phone: {type: String},

@@ -301,6 +301,181 @@
 
     if (!$.fn.bootstrapValidator) return;
 
+    $('#carrierForm').bootstrapValidator({
+      container: 'tooltip',
+      feedbackIcons: {
+        valid: 'fa fa-check',
+        invalid: 'fa fa-times',
+        validating: 'fa fa-refresh'
+      },
+      live: 'submitted',
+      fields: {
+        name: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        state: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        city: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        address: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        zipcode: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        phone: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        player_type: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        }
+      }
+    })
+      .on('success.field.bv', function(e, data) {
+        var $parent = data.element.parents('.form-group');
+        $parent.removeClass('has-success');
+        data.element.data('bv.icon').hide();
+      })
+      .on('success.form.bv', function (e) {
+
+        e.preventDefault();
+
+        var $form = $(e.target),
+          validator = $form.data('bootstrapValidator'),
+          submitButton = validator.getSubmitButton();
+
+        $.ajax({
+          type: 'post',
+          data: $form.serializeJSON(),
+          contentType: 'application/json',
+          url: '/carrier/create',
+          success: function (result) {
+            if (result.valid === true) {
+              window.location.href = '/carrier/' + result.id;
+            }
+          }
+        });
+
+      });
+
+    $('#carrierFormUpdate').bootstrapValidator({
+      container: 'tooltip',
+      feedbackIcons: {
+        valid: 'fa fa-check',
+        invalid: 'fa fa-times',
+        validating: 'fa fa-refresh'
+      },
+      live: 'submitted',
+      fields: {
+        name: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        state: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        city: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        address: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        zipcode: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        phone: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        },
+        player_type: {
+          validators: {
+            notEmpty: {
+              message: 'Please fill this field.'
+            }
+          }
+        }
+      }
+    })
+      .on('success.field.bv', function(e, data) {
+        var $parent = data.element.parents('.form-group');
+        $parent.removeClass('has-success');
+        data.element.data('bv.icon').hide();
+      })
+      .on('success.form.bv', function (e) {
+
+        e.preventDefault();
+
+        var $form = $(e.target),
+          validator = $form.data('bootstrapValidator'),
+          submitButton = validator.getSubmitButton();
+
+        $.ajax({
+          type: 'post',
+          data: $form.serializeJSON(),
+          contentType: 'application/json',
+          url: '/carrier/update',
+          success: function (result) {
+            if (result.valid === true) {
+              window.location.href = '/profile';
+            }
+          }
+        });
+
+      });
+
+
     $('#companyForm').bootstrapValidator({
       container: 'tooltip',
       feedbackIcons: {
@@ -357,6 +532,33 @@
 }(jQuery, window, document));
 
 (function ($, window, document) {
+
+  $(function () {
+
+    if (!$.fn.dataTable) return;
+
+    //var dtInstance1 = $('#datatable-requests').dataTable({
+    //  paging: true,  // Table pagination
+    //  ordering: true,  // Column ordering
+    //  info: true,  // Bottom left status text
+    //  order: [
+    //    [2, 'desc']
+    //  ]
+    //});
+    //var inputSearchClass1 = 'datatable-requests-search';
+    //var columnInputs1 = $('tfoot .' + inputSearchClass1);
+    //
+    //// On input keyup trigger filtering
+    //columnInputs1
+    //  .keyup(function () {
+    //    dtInstance1.fnFilter(this.value, columnInputs1.index(this) + 1);
+    //  });
+
+  });
+
+}(jQuery, window, document));
+
+(function ($, window, document) {
   $(function () {
     $('#shippingBtn').on('click', function (e) {
       e.preventDefault();
@@ -368,7 +570,7 @@
       $('#welcome').fadeOut();
       formbox.html('<p class="lead text-center"><i class="fa fa-spinner fa-spin"></i> Please wait...</p>');
       if ($this.val() === '1' || $this.val() === '2') {
-        formbox.load('/form_commercial');
+        formbox.load('/form_commercial?category=' + $this.val());
       }
     })
   });

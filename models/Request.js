@@ -3,6 +3,7 @@ var mongoose = require('lib/mongoose')
 
 var requestSchema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: 'User'},
+  category: {type: String},
   mode_of_dispatch: {type: String},
   nature_of_movement: {type: String},
   pickup_date: {type: Date},
@@ -19,8 +20,8 @@ var requestSchema = new Schema({
     weight: {type: String},
     units: {type: String}
   }],
-  total_value: {type: String},
-  total_weight: {type: String},
+  total_value: {type: Number},
+  total_weight: {type: Number},
   permit: {type: Boolean},
   vehicle: {type: Boolean},
   door_pickup: {type: Boolean},

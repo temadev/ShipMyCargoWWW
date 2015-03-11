@@ -136,6 +136,7 @@ form#shipmentForm(role='form', name='shipment-form')
 
   .jumbotron
     .text-center
+      input(type='hidden', name='category', value='#{category}')
       button.btn.btn-lg.btn-primary(type='submit')
         | Continue&nbsp;
         i.fa.fa-long-arrow-right

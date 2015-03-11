@@ -53,3 +53,78 @@
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+
+//#datatable-requests {
+//  table-layout:fixed;
+//  thead > tr > th,
+//  tbody > tr > td {
+//    overflow:hidden;
+//    text-overflow: ellipsis;
+//  }
+//}
+
+.table .form-control {
+  width: 100%;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  border: none;
+  -webkit-overflow-scrolling: touch;
+
+  // Tighten up spacing
+  > .table {
+    margin-bottom: 0;
+
+    // Ensure the content doesn't wrap
+    > thead,
+    > tbody,
+    > tfoot {
+      > tr {
+        > th,
+        > td {
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  // Special overrides for the bordered tables
+  > .table-bordered {
+    border: 0;
+
+    // Nuke the appropriate borders so that the parent can handle them
+    > thead,
+    > tbody,
+    > tfoot {
+      > tr {
+        > th:first-child,
+        > td:first-child {
+          border-left: 0;
+        }
+        > th:last-child,
+        > td:last-child {
+          border-right: 0;
+        }
+      }
+    }
+
+    // Only nuke the last row's bottom-border in `tbody` and `tfoot` since
+    // chances are there will be only one `tr` in a `thead` and that would
+    // remove the border altogether.
+    > tbody,
+    > tfoot {
+      > tr:last-child {
+        > th,
+        > td {
+          border-bottom: 0;
+        }
+      }
+    }
+
+  }
+}

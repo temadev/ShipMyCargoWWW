@@ -43,12 +43,12 @@ router.get('/:id', function (req, res, next) {
 });
 
 
-router.get('/create', checkAuth.carrier, function (req, res, next) {
+router.get('/create', checkAuth.user, function (req, res, next) {
   res.render('company/create');
 });
 
 
-router.post('/create', checkAuth.carrier, function (req, res, next) {
+router.post('/create', checkAuth.user, function (req, res, next) {
 
   var body = req.body
     , persons = req.body.person;

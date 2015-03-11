@@ -1,0 +1,53 @@
+- function addZ(n){return n<10? '0'+n:''+n;}
+- function showDate(date){ if (date !== '') { return date.getFullYear()+'/'+addZ(date.getMonth()+1)+'/'+addZ(date.getDate()); } else return '';}
+table#datatable-requests.table.table-striped
+  thead
+    tr
+      th Pickup
+      th Dispatch
+      th Movement
+      th From
+      th To
+      th Items
+      th Weight
+      th Value
+      th
+  tbody
+    each request in requests
+      tr
+        td(data-order='#{request.pickup_date ? request.pickup_date.getTime() : ""}') #{request.pickup_date ? showDate(request.pickup_date) : ""}
+        td #{request.mode_of_dispatch}
+        td #{request.nature_of_movement}
+        td #{request.booking_point} #{request.booking_pincode}
+        td #{request.delivery_point} #{request.delivery_pincode}
+        td #{request.items.length}
+        td !{request.total_weight ? request.total_weight + '&nbsp;kg' : '—'}
+        td $#{request.total_value}
+        td: a.btn.btn-success.btn-xs(href='/request/#{request._id}') Place Bid
+  tfoot
+    tr
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Pickup')
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Dispatch')
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Movement')
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='From')
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='To')
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Items')
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Weight')
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Value')
+      th
+
+script.
+  var dtInstance = $('#datatable-requests').dataTable({
+    paging: true,
+    ordering: true,
+    info: true,
+    order: [
+      [0, 'desc']
+    ]
+  });
+  var inputSearchClass = 'datatable-requests-search';
+  var columnInputs = $('tfoot .' + inputSearchClass);
+
+  columnInputs.keyup(function () {
+    dtInstance.fnFilter(this.value, columnInputs.index(this));
+  });
