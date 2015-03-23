@@ -1,0 +1,47 @@
+extends ../layouts/main
+block meta
+  title ShipMyCargo
+block content
+  div(style='margin-top: 40px')
+    .content
+      .page-header
+        h2 My Capacities
+
+      .row
+        .col-lg-3
+          .panel.panel-default
+            .panel-heading Your Dashboard
+            ul.list-group
+              li.list-group-item: a(href='#') Current Open Requests
+            .panel-body
+              form#formFilter
+                .form-group
+                  label Pickup Location
+                  input.form-control#bookingPoints(type='text', placeholder='Booking Location')
+                #bookingLocations(style='font-size:18px')
+                .form-group
+                  label Delivery Location
+                  input.form-control#deliveryPoints(type='text', placeholder='Booking points')
+                #deliveryResults(style='font-size:18px')
+                .form-group
+                  label Actual Weight (kg)
+                  select.form-control(name='weight')
+                    option(value='') Any
+                    each weight, index in ['0-500', '500-3000', '3000-5000', '>5000']
+                      option #{weight}
+            ul.list-group
+              li.list-group-item: a(href='#') My Bids
+              li.list-group-item: a(href='#') Closed Bids
+              li.list-group-item.active Capacities Posted
+              li.list-group-item: a(href='#') Settings
+
+        .col-lg-9
+          form#shipmentForm(role='form', name='shipment-form')
+            .form-group.form-group-lg
+              label.control-label(for='dispatch') What type of capacity do you want to Post?
+              select.form-control#dispatch(name='mode_of_dispatch')
+                option(selected, disabled, value='') Post
+                each val in ['Full Truck', 'Part Truck']
+                  option= val
+            .form-group
+              button.btn.btn-success.btn-lg(type='submit') Continue

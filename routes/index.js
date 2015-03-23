@@ -14,6 +14,10 @@ router.get('/', checkRegister, function (req, res, next) {
   res.render('index');
 });
 
+router.get('/pages/:page' , function (req, res, next) {
+  res.render('pages/'+req.params.page);
+});
+
 router.get('/shipping', checkRegister, function (req, res, next) {
   res.render('shipping');
 });
@@ -22,21 +26,6 @@ router.get('/shipping', checkRegister, function (req, res, next) {
 router.get('/form_commercial', function (req, res, next) {
   res.render('form/commercial', {category: req.query.category});
 });
-
-
-//router.get('/form2', function (req, res, next) {
-//  if (req.user) {
-//    Shipment
-//      .find({user: req.user})
-//      .sort({updated: -1})
-//      .limit(10)
-//      .exec(function (err, lastShipments) {
-//        res.render('shipment/create', {lastShipments: lastShipments});
-//      });
-//  } else {
-//    res.render('shipment/create');
-//  }
-//});
 
 
 router.get('/about', function (req, res, next) {

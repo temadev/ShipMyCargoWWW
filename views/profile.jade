@@ -261,7 +261,7 @@ block page_scripts
   if carrier
     script.
       var companyState = $('#companyState')
-              , companyCity = $('#companyCity');
+        , companyCity = $('#companyCity');
       companyState.autocomplete({
         serviceUrl: '/api/states',
         onSelect: function (suggestion) {

@@ -1,0 +1,167 @@
+extends ../layouts/main
+block meta
+  title ShipMyCargo
+block content
+
+  div(style='margin-top: 40px')
+    form#profileForm.form-horizontal(role='form', name='carrier-form')
+      .row
+        h2 Nature of Business
+        hr
+        .col-lg-5
+            .form-group
+              ul.list-unstyled
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='air_cargo')
+                      span.fa.fa-check
+                      | Air Cargo
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='rail')
+                      span.fa.fa-check
+                      | Rail
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='shipping')
+                      span.fa.fa-check
+                      | Shipping
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='surface_part_load')
+                      span.fa.fa-check
+                      | Surface Part Load - Cargo
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='surface_full_truck_load')
+                      span.fa.fa-check
+                      | Surface Full Truck Load - Cargo
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='courier_documents')
+                      span.fa.fa-check
+                      | Courier – Small Packets/Documents
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='container')
+                      span.fa.fa-check
+                      | Container Movement
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='freight_forwarding_air')
+                      span.fa.fa-check
+                      | Freight Forwarding Air
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='freight_forwarding_sea')
+                      span.fa.fa-check
+                      | Freight Forwarding Sea
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='movers_and_packers')
+                      span.fa.fa-check
+                      | Movers and Packers
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='cold_chain_cargo')
+                      span.fa.fa-check
+                      | Cold Chain Cargo
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='project_deliveries')
+                      span.fa.fa-check
+                      | Project Deliveries
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='local_deliveries')
+                      span.fa.fa-check
+                      | Local Deliveries (Within City)
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='odd_dimension_cargo')
+                      span.fa.fa-check
+                      | Odd dimension Cargo
+
+        .col-lg-7
+            .form-group
+              label.control-label You are a
+              select.form-control(name='you_are')
+                option Carrier
+                option Broker
+                option Carrier&Broker
+            .form-group
+              h3 Do you specialize in any of these industries:
+              hr
+              ul.list-unstyled
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='automobile')
+                      span.fa.fa-check
+                      | Automobile
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='pharmaceutical')
+                      span.fa.fa-check
+                      | Pharmaceutical
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='books_and_periodicals')
+                      span.fa.fa-check
+                      | Books and Periodicals
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='books_and_periodicals')
+                      span.fa.fa-check
+                      | Books and Periodicals
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='engineering')
+                      span.fa.fa-check
+                      | Engineering
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='fmcg')
+                      span.fa.fa-check
+                      | FMCG
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='it_and_hardware')
+                      span.fa.fa-check
+                      | IT and Hardware
+                li
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', name='e_commerce')
+                      span.fa.fa-check
+                      | E Commerce
+            .form-group
+              label.control-label If none of the above mention here
+              textarea.form-control(name='none_of_above')
+                
+      hr
+
+      p.text-center: a.btn.btn-primary.btn-lg(href='#')
+        | Continue&nbsp;
+        i.fa.fa-long-arrow-right
+

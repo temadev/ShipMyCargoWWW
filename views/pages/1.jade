@@ -1,0 +1,39 @@
+extends ../layouts/main
+block meta
+  title ShipMyCargo
+block content
+  .jumbotron(style='margin-top: 40px')
+    #welcome
+      h1.text-center Welcome to ShipMyCargo
+      .row
+        .col-sm-6
+          h2 Carrier
+          ul.fa-ul
+            li
+              i.fa-li.fa.fa-check
+              |Find optimum load to utilize your capacity
+            li
+              i.fa-li.fa.fa-check
+              | Post your capacity
+            li
+              i.fa-li.fa.fa-check
+              | Bid for loads
+          p: a.btn.btn-info(href='/welcome')
+            | Explore&nbsp;
+            i.fa.fa-long-arrow-right
+        .col-sm-6
+          h2 Shipper
+          ul.fa-ul
+            li
+              i.fa-li.fa.fa-check
+              | Find the cheapest and most efficient way of moving your consignment
+            li
+              i.fa-li.fa.fa-check
+              | Post your load
+            li
+              i.fa-li.fa.fa-check
+              | Find current capacities
+          p: a.btn.btn-info(href='/shipping')
+            | Post Your Load&nbsp;
+            i.fa.fa-long-arrow-right
+  #formbox

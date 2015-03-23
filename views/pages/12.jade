@@ -1,0 +1,64 @@
+extends ../layouts/main
+block meta
+  title ShipMyCargo
+block content
+  div(style='margin-top: 40px')
+    .content
+      .page-header
+        h2 My Capacities
+
+      .row
+        .col-lg-3
+          .panel.panel-default
+            .panel-heading Your Dashboard
+            ul.list-group
+              li.list-group-item: a(href='#') Current Open Requests
+            .panel-body
+              form#formFilter
+                .form-group
+                  label Pickup Location
+                  input.form-control#bookingPoints(type='text', placeholder='Booking Location')
+                #bookingLocations(style='font-size:18px')
+                .form-group
+                  label Delivery Location
+                  input.form-control#deliveryPoints(type='text', placeholder='Booking points')
+                #deliveryResults(style='font-size:18px')
+                .form-group
+                  label Actual Weight (kg)
+                  select.form-control(name='weight')
+                    option(value='') Any
+                    each weight, index in ['0-500', '500-3000', '3000-5000', '>5000']
+                      option #{weight}
+            ul.list-group
+              li.list-group-item: a(href='#') My Bids
+              li.list-group-item: a(href='#') Closed Bids
+              li.list-group-item.active Capacities Posted
+              li.list-group-item: a(href='#') Settings
+
+        .col-lg-9
+          h3 Please enter following details regarding your capacity
+          hr
+          form#postForm.form-horizontal(role='form', name='shipment-form')
+            .form-group
+              label.col-lg-3.control-label Date and Time
+              .col-lg-7
+                input.form-control(type='text', name='company', placeholder='Enter Date and Time')
+            .form-group
+              label.col-lg-3.control-label Type of Truck
+              .col-lg-7
+                input.form-control(type='text', name='year', placeholder='Open Body/Closed Body')
+            .form-group
+              label.col-lg-3.control-label Category of Truck
+              .col-lg-7
+                input.form-control(type='text', name='year', placeholder='LCV/MCV/Heavy/Trailer/ Container')
+            .form-group
+              label.col-lg-3.control-label Capacity of Truck (Passing/Payload)
+              .col-lg-7
+                input.form-control(type='text', name='year', placeholder='In MT')
+            .form-group
+              label.col-lg-3.control-label Freight
+              .col-lg-7
+                input.form-control(type='text', name='year', placeholder='In Rs')
+            .form-group
+              .col-lg-7.col-lg-offset-3
+                button.btn.btn-success.btn-lg(type='submit') Post

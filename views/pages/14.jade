@@ -1,0 +1,89 @@
+extends ../layouts/main
+block meta
+  title ShipMyCargo
+block content
+  div(style='margin-top: 40px')
+    .content
+      .page-header
+        h2 My Capacities
+
+      .row
+        .col-lg-3
+          .panel.panel-default
+            .panel-heading Your Dashboard
+            ul.list-group
+              li.list-group-item: a(href='#') Current Open Requests
+            .panel-body
+              form#formFilter
+                .form-group
+                  label Pickup Location
+                  input.form-control#bookingPoints(type='text', placeholder='Booking Location')
+                #bookingLocations(style='font-size:18px')
+                .form-group
+                  label Delivery Location
+                  input.form-control#deliveryPoints(type='text', placeholder='Booking points')
+                #deliveryResults(style='font-size:18px')
+                .form-group
+                  label Actual Weight (kg)
+                  select.form-control(name='weight')
+                    option(value='') Any
+                    each weight, index in ['0-500', '500-3000', '3000-5000', '>5000']
+                      option #{weight}
+            ul.list-group
+              li.list-group-item: a(href='#') My Bids
+              li.list-group-item: a(href='#') Closed Bids
+              li.list-group-item.active Capacities Posted
+              li.list-group-item: a(href='#') Settings
+
+        .col-lg-9
+          #requests
+            table#example.table.table-striped
+              thead
+                tr
+                  th From
+                  th To
+                  th Capacity (kg)
+                  th FTL/Part Load
+                  th Type of Truck
+                  th Category of Truck
+                  th Date and Time
+                  th Freight
+                  th Changes
+              tbody
+                tr
+                  td New Delhi
+                  td Bangalore
+                  td 9000
+                  td Full Truck
+                  td Closed Body
+                  td LCV
+                  td 29 Mar 2014 09:00
+                  td 40000
+                  td
+                    a(href='#') Modify
+                    | &nbsp;/&nbsp;
+                    a(href='#') Delete
+                tr
+                  td Chennai
+                  td Kolkata
+                  td 2500
+                  td Part Truck
+                  td Closed Body
+                  td MCV
+                  td 17 Mar 2014 09:00
+                  td 45000
+                  td
+                    a(href='#') Modify
+                    | &nbsp;/&nbsp;
+                    a(href='#') Delete
+              tfoot
+                tr
+                  th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='From')
+                  th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='To')
+                  th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Capacity (kg)')
+                  th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='FTL/Part Load')
+                  th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Type of Truck')
+                  th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Category of Truck')
+                  th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Date and Time')
+                  th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Freight')
+                  th

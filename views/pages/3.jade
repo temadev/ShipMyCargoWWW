@@ -1,0 +1,104 @@
+extends ../layouts/main
+block meta
+  title ShipMyCargo
+block content
+
+  div(style='margin-top: 40px')
+    form#profileForm.form-horizontal(role='form', name='carrier-form')
+      .row
+        .col-lg-5
+          .row
+            h2 Account
+            hr
+            .form-group
+              label.col-lg-4.control-label First Name
+              .col-lg-7
+                input.form-control(type='text', name='firstname')
+            .form-group
+              label.col-lg-4.control-label Last Name
+              .col-lg-7
+                input.form-control(type='text', name='lastname')
+            .form-group
+              label.col-lg-4.control-label Email
+              .col-lg-7
+                input.form-control(type='email', name='email')
+            .form-group
+              label.col-lg-4.control-label Confirm Email
+              .col-lg-7
+                input.form-control(type='email', name='emailConfirm')
+            .form-group
+              label.col-lg-4.control-label Designation
+              .col-lg-7
+                select.form-control(name='designation')
+                  option(selected, disabled) Please select
+                  option Sales Head
+                  option Sales Executive
+                  option Operations Executives Finance Executive
+                  option Sales and Operation Executive Computer Operator
+                  option Promoter
+                  option Branch Manager
+            .form-group
+              label.col-lg-4.control-label Password
+              .col-lg-7
+                input.form-control(type='password', name='password')
+            .form-group
+              label.col-lg-4.control-label Confirm Password
+              .col-lg-7
+                input.form-control(type='password', name='passwordConfirm')
+        .col-lg-7
+          .row
+            h2 Company Details
+            hr
+            .form-group
+              label.col-lg-3.control-label Company Name
+              .col-lg-7
+                input.form-control(type='text', name='company')
+            .form-group
+              label.col-lg-3.control-label Year Established
+              .col-lg-3
+                input.form-control(type='text', name='year')
+            .form-group
+              label.col-lg-3.control-label Company Website
+              .col-lg-7
+                input.form-control(type='text', name='website')
+            .form-group
+              label.col-lg-3.control-label Phone
+              .col-lg-7
+                input.form-control(type='text', name='phone')
+            .form-group
+              label.col-lg-3.control-label Country
+              .col-lg-7
+                select.form-control(name='country')
+                  option India
+            .form-group
+              label.col-lg-3.control-label State
+              .col-lg-7
+                select.form-control(name='state')
+            .form-group
+              label.col-lg-3.control-label City
+              .col-lg-7
+                input.form-control(type='text', name='city')
+            .form-group
+              label.col-lg-3.control-label Street Address
+              .col-lg-7
+                input.form-control(type='text', name='street')
+            .form-group
+              label.col-lg-3.control-label Zip Code
+              .col-lg-3
+                input.form-control(type='text', name='zip')
+            .form-group
+              label.col-lg-3.control-label Company Logo
+              .col-lg-7
+                input.form-control(type='file', name='logo')
+
+            .form-group
+              label.col-lg-3.control-label 2×2=
+              .col-lg-2
+                input.form-control(type='text', name='captcha')
+
+      hr
+
+      p.text-center: a.btn.btn-primary.btn-lg(href='#')
+        | Continue&nbsp;
+        i.fa.fa-long-arrow-right
+

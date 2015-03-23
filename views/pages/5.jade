@@ -1,0 +1,50 @@
+extends ../layouts/main
+block meta
+  title ShipMyCargo
+block content
+
+  div(style='margin-top: 40px')
+    form.form-horizontal(role='form', name='carrier-form')
+      h2 Delivery Locations
+      hr
+      .form-group
+        .col-lg-6
+          input.form-control#deliveryPoints(type='text', placeholder='Booking points')
+      #deliveryResults(style='font-size:21px')
+        span.label.label-primary
+          | All India [x]
+          input(type='hidden', name='delivery_points[]', value='all')
+      h2 Booking Locations
+      hr
+      .form-group
+        .col-lg-6
+          input.form-control#bookingPoints(type='text', placeholder='Booking Location')
+      #bookingLocations(style='font-size:21px')
+        span.label.label-primary
+          | All India [x]
+          input(type='hidden', name='booking_points[]', value='all')
+      hr
+
+      p.text-center: a.btn.btn-primary.btn-lg(href='#')
+        | Continue&nbsp;
+        i.fa.fa-long-arrow-right
+
+block page_scripts
+  script.
+    $(document).on('click', '#bookingResults span, #deliveryResults span', function () {
+      $(this).remove();
+    });
+    $('#bookingPoints').autocomplete({
+      serviceUrl: '/api/cities',
+      onSelect: function (suggestion) {
+        $('#bookingResults').append('<span class="label label-primary" style="margin-left: 6px">' + suggestion.value + '<input type="hidden" name="booking_points[]" value="' + suggestion.value + '"> [x]</span>');
+        $('#bookingPoints').val('');
+      }
+    });
+    $('#deliveryPoints').autocomplete({
+      serviceUrl: '/api/cities',
+      onSelect: function (suggestion) {
+        $('#deliveryResults').append('<span class="label label-primary" style="margin-left: 6px">' + suggestion.value + '<input type="hidden" name="delivery_points[]" value="' + suggestion.value + '"> [x]</span>');
+        $('#deliveryPoints').val('');
+      }
+    });
