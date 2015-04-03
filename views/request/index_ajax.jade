@@ -19,7 +19,7 @@ table#datatable-requests.table.table-striped
       tr
         td(data-order='#{request.pickup_date ? request.pickup_date.getTime() : ""}') #{request.pickup_date ? showDate(request.pickup_date) : ""}
         td #{category[request.category]}
-        td!{request.total_weight ? request.total_weight + '&nbsp;kg' : '—'}
+        td !{request.total_weight ? request.total_weight + '&nbsp;kg' : '—'}
         td #{request.booking_point} #{request.booking_pincode}
         td #{request.delivery_point} #{request.delivery_pincode}
         td: a.btn.btn-primary.btn-sm(href='#', data-toggle='modal', data-target='#detailModal'): i.fa.fa-plus

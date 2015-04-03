@@ -93,25 +93,46 @@ router.get('/', checkAuth.user, function (req, res, next) {
 
 router.post('/ajax', checkAuth.user, function (req, res, next) {
   var query = {status: true};
+  console.log(req.body['booking_points[]']);
+  console.log(req.body['delivery_points[]']);
+  console.log(req.body['weigth']);
   var result = {};
-  if (req.body.category) {
-    query.category = req.body.category;
-    result.category = req.body.category;
-  }
-  if (req.body.priceFrom && req.body.priceTo) {
-    query.total_value = {$gte: parseInt(req.body.priceFrom), $lte: parseInt(req.body.priceTo)};
-    result.priceFrom = req.body.priceFrom;
-    result.priceTo = req.body.priceTo;
-  } else {
-    if (req.body.priceFrom) {
-      query.total_value = {$gte: parseInt(req.body.priceFrom)};
-      result.priceFrom = req.body.priceFrom;
+
+
+  if (req.body['delivery_points[]']) {
+    var delivery_points = req.body['delivery_points[]'];
+    if (typeof delivery_points === 'string') {
+      delivery_points = [delivery_points];
     }
-    if (req.body.priceTo) {
-      query.total_value = {$lte: parseInt(req.body.priceTo)};
-      result.priceTo = req.body.priceTo;
+    query.delivery_point = { $in : delivery_points};
+    result.delivery_points = delivery_points;
+  }
+
+
+  if (req.body['booking_points[]']) {
+    var booking_points = req.body['booking_points[]'];
+    if (typeof booking_points === 'string') {
+      booking_points = [booking_points];
+    }
+    query.booking_point = { $in : booking_points};
+    result.booking_points = booking_points;
+  }
+
+
+  if (req.body['weight']) {
+    var weight = req.body['weight'];
+    result.weight = weight;
+
+    weight = weight.split('-');
+    if (weight.length == 2) {
+      query.total_weight = {$gte: parseInt(weight[0]), $lte: parseInt(weight[1])};
+    } else {
+      if (weight !== 'Any') {
+        query.total_weight = {$gte: 5000};
+      }
     }
   }
+
   console.log(query);
   Request.find(query).exec(function (err, requests) {
     result.requests = requests;

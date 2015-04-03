@@ -9,7 +9,7 @@
     requests.load('/request/ajax', {});
 
     $('#formFilter')
-      .on('change', '.form-control', function (e) {
+      .on('change', 'select.form-control', function (e) {
         $(this).submit();
       })
       .on('submit', function (e) {
