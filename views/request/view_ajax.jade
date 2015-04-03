@@ -1,0 +1,112 @@
+- function addZ(n){return n<10? '0'+n:''+n;}
+- function showDate(date){if (date) return date.getFullYear()+'/'+addZ(date.getMonth()+1)+'/'+addZ(date.getDate()); else return '';}
+.modal-header
+  button.close(type='button', data-dismiss='modal', aria-label='Close'): i.fa.fa-times
+  h4.modal-title Details
+.modal-body
+  .well
+    form#bidForm.form-horizontal(role='form', name='bid-form')
+      .form-group
+        label.col-lg-2.control-label(for='freight') Freight(Rs)
+        .col-lg-2
+          input.form-control#freight(type='text', name='freight')
+        label.col-lg-3.control-label(for='time') Transit Time(days)
+        .col-lg-2
+          input.form-control#time(type='text', name='time')
+        .col-lg-3
+          button.btn.btn-danger(type='submit') Place Bid
+  .row
+    .col-lg-8
+      .row
+        .col-lg-5
+          .row
+            .col-lg-8
+              .form-group.form-group-lg
+                label From
+                p= request.booking_point
+            .col-lg-4
+              .form-group.form-group-lg
+                label Pincode
+                p= request.booking_pincode
+        .col-lg-2.text-center
+          i.fa.fa-2x.fa-long-arrow-right(style='margin-top: 20px;')
+        .col-lg-5
+          .row
+            .col-lg-8
+              .form-group.form-group-lg
+                label To
+                p= request.delivery_point
+            .col-lg-4
+              .form-group.form-group-lg
+                label Pincode
+                p= request.delivery_pincode
+      hr
+      .panel.panel-default
+        .panel-heading: h3.panel-title Items
+        table#items.table.table-striped
+          thead
+            tr
+              th(style='width:34%') Handling Unit
+              th(style='width:9%') Length
+              th(style='width:9%') Breadth
+              th(style='width:9%') Height
+              th(style='width:12%') Measure
+              th(style='width:12%') Weight
+              th(style='width:10%') Units
+          tbody
+            each item in request.items
+              tr
+                td= item.unit
+                td= item.length
+                td= item.breadth
+                td= item.height
+                td= item.measure
+                td= item.weight
+                td= item.units
+
+      .row
+        .col-lg-4
+          label Total Value of Goods
+          p $#{request.total_value)
+        .col-lg-4
+          label Total Weight
+          p #{request.total_weight) kg
+      hr
+      .row
+        .col-lg-4
+          label Pickup Requirements:
+          ul.list-unstyled
+            if request.permit
+              li Permit Available
+            if request.vehicle
+              li Closed Body Vehicle
+            if request.door_pickup
+              li Door Pickup
+            if request.packaging_service
+              li Packaging Services Required
+            if request.transit_insurance
+              li Transit Insurance Required
+        .col-lg-4
+          label Delivery Requirements:
+          ul.list-unstyled
+            if request.door_delivery
+              li Door Delivery Required
+
+    .col-md-4
+      .panel.panel-success
+        .panel-heading Shipment Details
+        table.table
+          tr
+            td Shipper Name
+            td #{user.lastname} #{user.firstname}
+          tr
+            td Shipment Id
+            td #{request._id}
+          tr
+            td Listing Date
+            td #{showDate(request.created)}
+          tr
+            td End Date
+            td #{showDate(request.pickup_date)}
+        .panel-footer
+          a.btn.btn-warning(href='#') Modify

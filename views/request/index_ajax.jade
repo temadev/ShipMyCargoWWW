@@ -22,7 +22,7 @@ table#datatable-requests.table.table-striped
         td !{request.total_weight ? request.total_weight + '&nbsp;kg' : '—'}
         td #{request.booking_point} #{request.booking_pincode}
         td #{request.delivery_point} #{request.delivery_pincode}
-        td: a.btn.btn-primary.btn-sm(href='#', data-toggle='modal', data-target='#detailModal'): i.fa.fa-plus
+        td: a.btn.btn-primary.btn-sm(href='/request/ajax/#{request._id}', data-toggle='modal', data-target='#detailModal'): i.fa.fa-plus
         td -
         td -
         td: a.btn.btn-danger.btn-sm(href='/request/#{request._id}', data-toggle='modal', data-target='#bidModal') Place Bid

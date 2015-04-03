@@ -93,9 +93,6 @@ router.get('/', checkAuth.user, function (req, res, next) {
 
 router.post('/ajax', checkAuth.user, function (req, res, next) {
   var query = {status: true};
-  console.log(req.body['booking_points[]']);
-  console.log(req.body['delivery_points[]']);
-  console.log(req.body['weigth']);
   var result = {};
 
 
@@ -133,7 +130,6 @@ router.post('/ajax', checkAuth.user, function (req, res, next) {
     }
   }
 
-  console.log(query);
   Request.find(query).exec(function (err, requests) {
     result.requests = requests;
     //console.log(result);
@@ -177,6 +173,19 @@ router.post('/ajax', checkAuth.user, function (req, res, next) {
 //      })
 //    });
 //});
+
+
+router.get('/ajax/:id', checkAuth.user, function (req, res, next) {
+  try {
+    var id = new ObjectId(req.params.id);
+  } catch (e) {
+    next();
+    return;
+  }
+  Request.findById(id).exec(function (err, request) {
+    res.render('request/view_ajax', {request: request});
+  });
+});
 
 
 router.get('/:id', checkAuth.user, function (req, res, next) {
