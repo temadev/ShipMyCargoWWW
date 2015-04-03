@@ -1,39 +1,41 @@
 - function addZ(n){return n<10? '0'+n:''+n;}
 - function showDate(date){ if (date !== '') { return date.getFullYear()+'/'+addZ(date.getMonth()+1)+'/'+addZ(date.getDate()); } else return '';}
+- category = ['Part Load - Commercial Goods', 'Full Truck Load - Commercial Goods', 'Household Goods', 'Personal Vehicle (Motorcycle/Cycle)', 'Container Movement', 'Plant Machinery/Industrial Goods', 'Cold Chain Goods', 'Documents', 'Relocation']
+
 table#datatable-requests.table.table-striped
   thead
     tr
-      th Pickup
-      th Dispatch
-      th Movement
+      th Picture
+      th Material
+      th Weight
       th From
       th To
-      th Items
-      th Weight
-      th Value
+      th Details
+      th No. of Bids
+      th Lowest Bid
       th
   tbody
     each request in requests
       tr
         td(data-order='#{request.pickup_date ? request.pickup_date.getTime() : ""}') #{request.pickup_date ? showDate(request.pickup_date) : ""}
-        td #{request.mode_of_dispatch}
-        td #{request.nature_of_movement}
+        td #{category[request.category]}
+        td!{request.total_weight ? request.total_weight + '&nbsp;kg' : '—'}
         td #{request.booking_point} #{request.booking_pincode}
         td #{request.delivery_point} #{request.delivery_pincode}
-        td #{request.items.length}
-        td !{request.total_weight ? request.total_weight + '&nbsp;kg' : '—'}
-        td $#{request.total_value}
-        td: a.btn.btn-success.btn-xs(href='/request/#{request._id}') Place Bid
+        td: a.btn.btn-primary.btn-sm(href='#', data-toggle='modal', data-target='#detailModal'): i.fa.fa-plus
+        td -
+        td -
+        td: a.btn.btn-danger.btn-sm(href='/request/#{request._id}', data-toggle='modal', data-target='#bidModal') Place Bid
   tfoot
     tr
-      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Pickup')
-      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Dispatch')
-      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Movement')
+      th
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Material')
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Weight')
       th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='From')
       th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='To')
-      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Items')
-      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Weight')
-      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Value')
+      th
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='No. of Bids')
+      th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Lowest Bid')
       th
 
 script.

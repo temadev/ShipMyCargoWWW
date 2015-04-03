@@ -2,59 +2,68 @@ extends ../layouts/main
 block meta
   title Last Searches
 block content
-  .content
-    .page-header
-      h1 Last Searches
-    .row
-      .col-lg-2
-        .panel.panel-default
-          .panel-heading Filter
-          .panel-body
-            form#formFilter
-              .form-group
-                .row
-                  .col-lg-6
-                    label price
-                    input.form-control.input-sm.datatable-requests-search(type='text', placeholder='from', name='priceFrom', value='#{priceFrom?priceFrom:""}')
-                  .col-lg-6
-                    label &nbsp;
-                    input.form-control.input-sm.datatable-requests-search(type='text', placeholder='to', name='priceTo', value='#{priceTo?priceTo:""}')
-              .form-group
-                label Category
-                select.form-control(name='category')
-                  option(value='') All
-                  each cat, index in ['Part Load - Commercial Goods', 'Full Truck Load - Commercial Goods', 'Household Goods', 'Personal Vehicle (Motorcycle/Cycle)', 'Container Movement', 'Plant Machinery/Industrial Goods', 'Cold Chain Goods', 'Documents', 'Relocation']
-                    if (index+1 == category)
-                      option(value='#{index+1}', selected) #{cat}
-                    else
-                      option(value='#{index+1}') #{cat}
-      .col-lg-10
-        #requests
+  div(style='margin-top: 40px')
+    .pull-right
+      a.btn.btn-success(href='#')
+        | Post Capacity
+    .content
+      .page-header
+        p Congratulations on successfully registering on ShipMyCargo Post Capacity! You can successfully upload your capacities and place bids on matching requests! Please find below list of open requirements currently open for Bids
 
-  //table#example.table.table-striped
-    thead
-      tr
-        th Pickup
-        th Dispatch
-        th Movement
-        th From
-        th To
-        th Items
-        th Weight
-        th Value
-        th
+      .row
+        .col-lg-3
+          .panel.panel-default
+            .panel-heading Your Dashboard
+            ul.list-group
+              li.list-group-item.active Current Open Requests
+            .panel-body
+              form#formFilter
+                .form-group
+                  label Pickup Location
+                  input.form-control#bookingPoints(type='text', placeholder='Booking Location')
+                #bookingLocations(style='font-size:18px')
+                .form-group
+                  label Delivery Location
+                  input.form-control#deliveryPoints(type='text', placeholder='Booking points')
+                #deliveryResults(style='font-size:18px')
+                .form-group
+                  label Actual Weight (kg)
+                  select.form-control(name='weight')
+                    option(value='') Any
+                    each weight, index in ['0-500', '500-3000', '3000-5000', '>5000']
+                      option #{weight}
+            ul.list-group
+              li.list-group-item: a(href='#') My Bids
+              li.list-group-item: a(href='#') Closed Bids
+              li.list-group-item: a(href='#') Capacities Posted
+              li.list-group-item: a(href='#') Settings
+        .col-lg-9
+          #requests
 
-    tfoot
-      tr
-        th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Pickup')
-        th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Dispatch')
-        th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Movement')
-        th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='From')
-        th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='To')
-        th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Items')
-        th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Weight')
-        th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Value')
-        th
+    //table#example.table.table-striped
+      thead
+        tr
+          th Pickup
+          th Dispatch
+          th Movement
+          th From
+          th To
+          th Items
+          th Weight
+          th Value
+          th
+
+      tfoot
+        tr
+          th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Pickup')
+          th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Dispatch')
+          th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Movement')
+          th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='From')
+          th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='To')
+          th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Items')
+          th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Weight')
+          th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Value')
+          th
 
 
 block page_scripts
