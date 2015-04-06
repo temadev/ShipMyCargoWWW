@@ -4,7 +4,7 @@
   button.close(type='button', data-dismiss='modal', aria-label='Close'): i.fa.fa-times
   h4.modal-title Details
 .modal-body
-  .well
+  .well.bid
     form#bidForm.form-horizontal(role='form', name='bid-form')
       .form-group
         label.col-lg-2.control-label(for='freight') Freight(Rs)
@@ -12,9 +12,29 @@
           input.form-control#freight(type='text', name='freight')
         label.col-lg-3.control-label(for='time') Transit Time(days)
         .col-lg-2
-          input.form-control#time(type='text', name='time')
+          input.form-control#time(type='text', name='transit_time')
         .col-lg-3
+          input(type='hidden', name='request', value='#{request._id}')
           button.btn.btn-danger(type='submit') Place Bid
+  script.
+    $(function () {
+      $('#bidForm button').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'post',
+          data: $('#bidForm').serializeJSON(),
+          contentType: 'application/json',
+          url: '/bid/update',
+          success: function (result) {
+            if (result.valid == true) {
+              $('.bid').html('<p>Your Bid has been posted!</p>');
+              $('.num_bids_' + result.id).getNumBids();
+              $('.lowest_bid_' + result.id).getLowestBid();
+            }
+          }
+        })
+      });
+    });
   .row
     .col-lg-8
       .row
@@ -98,7 +118,7 @@
         table.table
           tr
             td Shipper Name
-            td #{user.lastname} #{user.firstname}
+            td #{request.user.lastname} #{request.user.firstname}
           tr
             td Shipment Id
             td #{request._id}

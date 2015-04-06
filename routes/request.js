@@ -182,8 +182,21 @@ router.get('/ajax/:id', checkAuth.user, function (req, res, next) {
     next();
     return;
   }
-  Request.findById(id).exec(function (err, request) {
+  Request.findById(id).populate('user').exec(function (err, request) {
     res.render('request/view_ajax', {request: request});
+  });
+});
+
+
+router.get('/bid/:id', checkAuth.user, function (req, res, next) {
+  try {
+    var id = new ObjectId(req.params.id);
+  } catch (e) {
+    next();
+    return;
+  }
+  Request.findById(id).exec(function (err, request) {
+    res.render('request/bid_ajax', {request: request});
   });
 });
 

@@ -54,6 +54,7 @@ app.use('/company', require('routes/company'));
 app.use('/carrier', require('routes/carrier'));
 app.use('/api', require('routes/api'));
 app.use('/request', require('routes/request'));
+app.use('/bid', require('routes/bid'));
 app.use('/dashboard', require('routes/dashboard'));
 
 // catch 404 and forward to error handler

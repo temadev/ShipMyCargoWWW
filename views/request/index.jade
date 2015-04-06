@@ -69,33 +69,6 @@ block body_child
   #bidModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalLabel', aria-hidden='true')
     .modal-dialog
       .modal-content
-        .modal-header
-          button.close(type='button', data-dismiss='modal', aria-label='Close'): i.fa.fa-times
-          h4.modal-title Place Bid
-        .modal-body
-          form#bidForm.form-horizontal(role='form', name='bid-form')
-            .form-group
-              label.col-lg-3.control-label(for='freight') Freight(Rs)
-              .col-lg-2
-                input.form-control#freight(type='text', name='freight')
-              label.col-lg-4.control-label(for='time') Transit Time(days)
-              .col-lg-2
-                input.form-control#time(type='text', name='time')
-            .form-group
-              .col-lg-4.col-lg-offset-1
-                .checkbox.c-checkbox
-                  label
-                    input(type='checkbox', name='insurance')
-                    span.fa.fa-check
-                    | Insurance Offered
-              label.col-lg-4.control-label(for='hours') Bid Validity Hours
-              .col-lg-2
-                input.form-control#hours(type='text', name='hours')
-            .form-group
-              .col-lg-offset-3.col-lg-6
-                button.btn.btn-danger(type='submit') Place Bid
-                | &nbsp;
-                button.btn.btn-default(type='button') Terms and Conditions
 
   #detailModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalLabel', aria-hidden='true')
     .modal-dialog.modal-lg

@@ -17,16 +17,20 @@ table#datatable-requests.table.table-striped
   tbody
     each request in requests
       tr
-        td(data-order='#{request.pickup_date ? request.pickup_date.getTime() : ""}') #{request.pickup_date ? showDate(request.pickup_date) : ""}
+        //td(data-order='#{request.pickup_date ? request.pickup_date.getTime() : ""}') #{request.pickup_date ? showDate(request.pickup_date) : ""}
+        td(data-order='#{request.pickup_date ? request.pickup_date.getTime() : ""}'): img(src='/img/box.png', alt='', style='width:48px')
         td #{category[request.category]}
         td !{request.total_weight ? request.total_weight + '&nbsp;kg' : '—'}
         td #{request.booking_point} #{request.booking_pincode}
         td #{request.delivery_point} #{request.delivery_pincode}
         td: a.btn.btn-primary.btn-sm(href='/request/ajax/#{request._id}', data-toggle='modal', data-target='#detailModal'): i.fa.fa-plus
-        td -
-        td -
-        td: a.btn.btn-danger.btn-sm(href='/request/#{request._id}', data-toggle='modal', data-target='#bidModal') Place Bid
-  tfoot
+        td(class='num_bids_#{request._id}')
+        td(class='lowest_bid_#{request._id}')
+        td: a.btn.btn-danger.btn-sm(href='/request/bid/#{request._id}', data-toggle='modal', data-target='#bidModal') Place Bid
+        script.
+          $('.num_bids_#{request._id}').getNumBids();
+          $('.lowest_bid_#{request._id}').getLowestBid();
+  //tfoot
     tr
       th
       th: input.form-control.input-sm.datatable-requests-search(type='text', placeholder='Material')
@@ -40,12 +44,16 @@ table#datatable-requests.table.table-striped
 
 script.
   var dtInstance = $('#datatable-requests').dataTable({
-    paging: true,
-    ordering: true,
+    paging: false,
+    ordering: false,
     info: true,
     order: [
       [0, 'desc']
-    ]
+    ],
+    fnDrawCallback: function (oSettings) {
+      //alert('DataTables has redrawn the table');
+      //console.log(oSettings);
+    }
   });
   var inputSearchClass = 'datatable-requests-search';
   var columnInputs = $('tfoot .' + inputSearchClass);
