@@ -10,6 +10,16 @@ var express = require('express')
   , User = require('models/User');
 
 
+router.get('/mybids', function (req, res, next) {
+
+  Bid.find({user: req.user}).populate('request').exec(function (err, bids) {
+    res.send({bids: bids})
+  });
+
+});
+
+
+
 router.post('/update', function (req, res, next) {
 
   var newBid = new Bid({

@@ -118,7 +118,7 @@
         table.table
           tr
             td Shipper Name
-            td #{request.user.lastname} #{request.user.firstname}
+            td #{(request.user && request.user.lastname)?request.user.lastname:''} #{(request.user && request.user.firstname)?request.user.firstname:''}
           tr
             td Shipment Id
             td #{request._id}
